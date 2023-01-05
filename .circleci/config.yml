@@ -29,6 +29,7 @@ jobs:
         command: |
           wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/circleci/get_ds114_test<< parameters.dataset >>.sh
           bash get_ds114_test<< parameters.dataset >>.sh
+          ls -l
 
     - run: bidsgnostic data/ds114_test<< parameters.dataset >> results participant -c24
     - run: bidsgnostic data/ds114_test2 results participant -c24
