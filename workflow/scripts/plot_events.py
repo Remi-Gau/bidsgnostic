@@ -1,7 +1,7 @@
 # pyright: reportUndefinedVariable=false
 from pathlib import Path
 
-from bids.visualize import EventPlotter
+from bidsgnostic.visualize import EventPlotter
 
 this = EventPlotter(snakemake.input.events)
 this.plot()

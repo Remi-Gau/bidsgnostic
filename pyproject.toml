@@ -25,7 +25,6 @@ classifiers = [
 dependencies = [
   "loguru",
   "plotly",
-  # "pybids @ git+https://git@github.com/Remi-Gau/pybids.git@visualization",
   "rich",
   "snakebids>=0.7.1", 
   "snakemake",

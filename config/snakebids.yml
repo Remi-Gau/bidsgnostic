@@ -84,6 +84,15 @@ parse_args:
     default: False
     nargs: '+'
 
+  --log_level:
+    help:
+      The log_level level of the reporting that will be printed to the console.
+      The default is "0", which means that only warnings and errors will be
+      reported. If set to "1", all warnings, errors, and informational messages
+      will be reported. If set to "2", all warnings, errors, informational and
+      debug messages will be reported.
+    default: "0"
+
 
 #--- workflow specific configuration -- below is just an example:
 

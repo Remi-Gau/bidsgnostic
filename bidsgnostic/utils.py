@@ -49,7 +49,7 @@ def create_dataset_description(snakemake) -> None:
         ],
     }
 
-    output_file = Path(snakemake.output.file)
+    output_file = Path(snakemake.input.bids_dir).joinpath(snakemake.output.file)
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
 

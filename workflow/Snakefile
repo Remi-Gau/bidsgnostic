@@ -1,5 +1,7 @@
 #---- begin snakebids boilerplate ----------------------------------------------
 
+from pathlib import Path
+
 import snakebids
 from snakebids import bids
 
@@ -17,6 +19,12 @@ inputs = snakebids.generate_inputs(
     use_bids_inputs=True,
 )
 
+inputs.wildcards == {
+    "events": {"subject": "{subject}", "task": "{task}", "run": "{run}"}
+}
+
+print(f"configuration:\n{config}")
+
 
 
 #this adds constraints to the bids naming
@@ -24,27 +32,6 @@ wildcard_constraints:  **snakebids.get_wildcard_constraints(config['pybids_input
 
 #---- end snakebids boilerplate ------------------------------------------------
 
-
-rule smooth:
-    input: inputs.path['bold']
-    output:
-        bids(
-            root=config['root'],
-            datatype='func',
-            desc='smooth{fwhm}mm',
-            suffix='bold.nii.gz',
-            **inputs.wildcards['bold']
-        )
-    container: config['singularity']['fsl']
-    log:
-        bids(
-            root='logs',
-            suffix='smooth.log',
-            fwhm='{fwhm}',
-            **inputs.wildcards['bold']
-        )
-    params: sigma = lambda wildcards: f'{float(wildcards.fwhm)/2.355:0.2f}'
-    shell: 'fslmaths {input} -s {params.sigma} {output}'
 
 rule plot_events:
     input:
@@ -60,7 +47,9 @@ rule plot_events:
 
 rule write_ds_desc:
     input:
-        events=rules.plot_events.output,
+        bids_dir= config["bids_dir"],
+    output:
+        file= Path(config["output_dir"]).joinpath("dataset_description.json")
     script:
         "scripts/write_ds_desc.py"
 
@@ -68,12 +57,10 @@ rule write_ds_desc:
 rule all:
     input:
         expand(
-            expand(
-                rules.smooth.output,
-                fwhm = config['smoothing_fwhm'],
-                allow_missing=True,
+            bids(
+                root="bidsgnostic", suffix="events.html", **inputs.wildcards["events"]
             ),
-            zip,
-            **inputs.zip_lists['bold']
-        )
+            **inputs.entities["events"]
+        ),
+        rules.write_ds_desc.output.file
     default_target: True
