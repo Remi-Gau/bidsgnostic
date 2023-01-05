@@ -12,9 +12,7 @@ RUN apt-get update -qq && \
 
 WORKDIR /bidsgnostic
 
-RUN pip3 install -e . && \
-    apt-get remove -y \
-        python3-pip
+RUN pip3 install -e .
 
 ENV PYTHONPATH=""
 
