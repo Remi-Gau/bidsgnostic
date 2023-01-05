@@ -84,6 +84,9 @@ parse_args:
       debug messages will be reported.
     default: '0'
 
+  # --version:
+  #   action: "version"
+  #   help: "show program's version number and exit"
 
 #--- workflow specific configuration -- below is just an example:
 

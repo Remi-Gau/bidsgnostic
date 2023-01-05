@@ -82,6 +82,31 @@ jobs:
             --participant-label 01 \
             -c24
 
+  test_docker:
+    machine:
+      image: ubuntu-2204:2022.10.2
+
+    parameters:
+      dataset:
+        type: string
+
+    steps:
+    - attach_workspace:
+        at: /tmp/workspace
+    - run: docker load -i /tmp/workspace/image.tar
+
+    - run: mkdir -p ${HOME}/outputs_docker_<< parameters.dataset >>
+
+    - run:
+        command: |
+          docker run -ti --rm --read-only \
+            -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
+            -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
+              bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 01 02
+
+    - store_artifacts:
+        path: ~/outputs_docker_<< parameters.dataset >>
+
 
 workflows:
   build_test_deploy:
@@ -91,6 +116,13 @@ workflows:
     - test_internal_data
     - test_external_data:
         requires:
+        - get_external_data
+        matrix:
+          parameters:
+            dataset: ['1', '2']
+    - test_docker:
+        requires:
+        - build
         - get_external_data
         matrix:
           parameters:
