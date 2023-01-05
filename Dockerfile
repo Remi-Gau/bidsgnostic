@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND="noninteractive"
 
 RUN apt-get update -qq && \
     apt-get install -q -y --no-install-recommends && \
-        python3 \
+        python3 && \
         python3-pip && \
     git clone https://github.com/Remi-Gau/bidsgnostic.git && \
     apt-get clean && \

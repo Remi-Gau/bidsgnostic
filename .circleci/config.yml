@@ -72,7 +72,7 @@ jobs:
         at: /tmp/workspace
     - checkout
     - run: pip install -e .
-    - run: bidsgnostic /tmp/workspace/data/ds114_test<< parameters.dataset >> results participant -c24
+    - run: bidsgnostic /tmp/workspace/data/ds114_test<< parameters.dataset >> results participant --filter-events -c24
 
 
 workflows:
