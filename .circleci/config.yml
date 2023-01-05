@@ -24,6 +24,7 @@ jobs:
         paths:
         - docker/image.tar
 
+
   get_external_data:
     machine:
       image: ubuntu-2204:2022.10.2
@@ -52,6 +53,7 @@ jobs:
         - data/ds114_test1
         - data/ds114_test2
 
+
   test_internal_data:
     executor: python/default
     steps:
@@ -68,7 +70,7 @@ jobs:
         command: |
           cd tmp
           bidsgnostic ../tests/data/ds001 results group -c24 --verbose --log_level 2
-          tree results
+
 
   test_external_data:
     executor: python/default
@@ -81,14 +83,22 @@ jobs:
     - checkout
     - run: pip install -e .
     - run:
-        name: test external data ds114_test<< parameters.dataset >>
+        name: test external ds114_<< parameters.dataset >> at participant level
         command: |
           bidsgnostic \
             /tmp/workspace/data/ds114_test<< parameters.dataset >> \
             outputs<< parameters.dataset >> \
             participant \
-            -c1 --verbose --log_level 2 \
-            --participant-label 01 \
+            -c2 --verbose --log_level 2 \
+            --participant-label 01 02
+    - run:
+        name: test external data ds114_<< parameters.dataset >> at group level
+        command: |
+          bidsgnostic \
+            /tmp/workspace/data/ds114_test<< parameters.dataset >> \
+            outputs<< parameters.dataset >> \
+            group \
+            -c2 --verbose --log_level 2
 
 
   test_docker:
@@ -100,6 +110,9 @@ jobs:
         type: string
 
     steps:
+
+    - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
+
     - attach_workspace:
         at: /tmp/workspace
     - run: docker load -i /tmp/workspace/docker/image.tar
@@ -127,6 +140,10 @@ jobs:
                 /bids_dataset \
                 /outputs group \
                 -c1 --verbose --log_level 2
+
+    - run:
+        name: list results
+        command: tree ${HOME}/outputs_docker_<< parameters.dataset >>
 
     - store_artifacts:
         path: ~/outputs_docker_<< parameters.dataset >>
