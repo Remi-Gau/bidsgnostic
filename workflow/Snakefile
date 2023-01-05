@@ -47,7 +47,7 @@ rule plot_events:
 
 rule top_files:
     input:
-        output_dir= config["output_dir"],
+        output_dir= config["output_dir"]
     output:
         desc = Path(config["output_dir"]).joinpath("bidsgnostic", "dataset_description.json"),
         readme = Path(config["output_dir"]).joinpath("bidsgnostic", "README.md"),
