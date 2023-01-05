@@ -1,24 +1,29 @@
 ---
 version: 2.1
 
+orbs:
+  python: circleci/python@2.1.1
+
 jobs:
 
   test_internal_data:
-    docker:
-    - image: 3.11.1-bullseye
+    executor: python/default
     steps:
     - checkout
+    - python/install-packages:
+        pkg-manager: pip
     - run: pip install -e .
     - run: bidsgnostic tests/data/ds001 results participant -c24
 
   test_external_data:
-    docker:
-    - image: 3.11.1-bullseye
+    executor: python/default
     parameters:
       dataset:
         type: string
     steps:
     - checkout
+    - python/install-packages:
+        pkg-manager: pip
     - run: pip install -e .
     - restore_cache:
         keys:
