@@ -45,13 +45,15 @@ rule plot_events:
     script:
         "scripts/plot_events.py"
 
-rule write_ds_desc:
+rule top_files:
     input:
-        bids_dir= config["bids_dir"],
+        output_dir= config["output_dir"],
     output:
-        file= Path(config["output_dir"]).joinpath("dataset_description.json")
+        desc = Path(config["output_dir"]).joinpath("bidsgnostic", "dataset_description.json"),
+        readme = Path(config["output_dir"]).joinpath("bidsgnostic", "README.md"),
+        license = Path(config["output_dir"]).joinpath("bidsgnostic", "LICENSE"),
     script:
-        "scripts/write_ds_desc.py"
+        "scripts/add_top_files.py"
 
 
 rule all:
@@ -62,5 +64,7 @@ rule all:
             ),
             **inputs.entities["events"]
         ),
-        rules.write_ds_desc.output.file
+        rules.top_files.output.desc,
+        rules.top_files.output.readme,
+        rules.top_files.output.license,
     default_target: True
