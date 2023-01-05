@@ -5,7 +5,7 @@ jobs:
 
   test_internal_data:
     machine:
-      image: ubuntu-2204:2022.10.2
+      image: 3.11.1-bullseye
     steps:
     - checkout
     - run: pip install -e .
@@ -13,7 +13,7 @@ jobs:
 
   test_external_data:
     machine:
-      image: ubuntu-2204:2022.10.2
+      image: 3.11.1-bullseye
     parameters:
       dataset:
         type: string
