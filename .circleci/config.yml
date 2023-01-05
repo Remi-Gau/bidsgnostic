@@ -140,6 +140,7 @@ workflows:
     - build:
         requires:
         - test_internal_data
+        - test_external_data
     - test_external_data:
         requires:
         - get_external_data
