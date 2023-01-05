@@ -66,7 +66,9 @@ jobs:
     - run:
         name: test internal data at group level
         command: |
+          cd tmp
           bidsgnostic ../tests/data/ds001 results group -c24 --verbose --log_level 2
+          tree results
 
   test_external_data:
     executor: python/default
