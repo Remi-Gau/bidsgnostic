@@ -4,16 +4,16 @@ version: 2.1
 jobs:
 
   test_internal_data:
-    machine:
-      image: 3.11.1-bullseye
+    docker:
+    - image: 3.11.1-bullseye
     steps:
     - checkout
     - run: pip install -e .
     - run: bidsgnostic tests/data/ds001 results participant -c24
 
   test_external_data:
-    machine:
-      image: 3.11.1-bullseye
+    docker:
+    - image: 3.11.1-bullseye
     parameters:
       dataset:
         type: string
