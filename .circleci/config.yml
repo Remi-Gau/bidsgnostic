@@ -60,7 +60,12 @@ jobs:
     steps:
     - checkout
     - run: pip install -e .
-    - run: bidsgnostic tests/data/ds001 results participant -c24
+    - run:
+        name: test internal data
+        command: |
+          mkdir tmp
+          cd tmp
+          bidsgnostic ../tests/data/ds001 results participant -c24
 
   test_external_data:
     executor: python/default
