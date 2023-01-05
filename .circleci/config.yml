@@ -36,7 +36,10 @@ jobs:
 
     - run: bidsgnostic data/ds114_test<< parameters.dataset >> results participant -c24
     - run: bidsgnostic data/ds114_test2 results participant -c24
-
+    - save_cache:
+        key: my_cache
+        paths:
+        - ~/data
 
 workflows:
   build_test_deploy:
