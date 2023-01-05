@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools", "versioneer[toml]"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bidsgnostic"
+description = "diagnose bids dataset"
+readme = "README.md"
+requires-python = ">=3.7"
+license = { file="LICENSE" }
+authors = [
+  { name = "remi gau", email = "remi.gau@gmail.com" },
+]
+# url = pipeline["GeneratedBy"][0]["CodeURL"]
+keywords = ["BIDS", "neuroimaging"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Topic :: Scientific/Engineering",
+]
+dependencies = [
+  "loguru",
+  "plotly",
+  # "pybids @ git+https://git@github.com/Remi-Gau/pybids.git@visualization",
+  "rich",
+  "snakebids>=0.7.1", 
+  "snakemake",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+doc = [
+  "sphinx >=2.2, !=5.1.0",
+  "numpydoc",
+  "sphinx_rtd_theme",
+  "myst_nb",
+]
+test = [
+  "tox",
+  "pytest >=3.3",
+  "pytest-cov",
+  "coverage[toml]",
+]
+# Aliases
+docs = ["pybids[doc]"]
+tests = ["pybids[test]"]
+dev = ["pybids[doc,test]"]
+
+[project.urls]
+Homepage = "https://github.com/Remi-Gau/bidsgnostic.git"
+"Bug Tracker" = "https://github.com/Remi-Gau/bidsgnostic/issues"
+
+[project.scripts]
+bidsgnostic = "bidsgnostic.run:main"
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440-pre"
+versionfile_source = "bidsgnostic/_version.py"
+versionfile_build = "bidsgnostic/_version.py"
+
+[tool.coverage.run]
+branch = true
+source = ["bidsgnostic/*"]
+include = ["bidsgnostic/*"]
+omit = [
+  "*/setup.py",
+  "*/*version.py",
+]
+
+[tool.coverage.report]
+include = ["bidsgnostic/*"]
+
+# [tool.mypy]
+# check_untyped_defs = true
+# disallow_any_generics = true
+# disallow_incomplete_defs = true
+# disallow_untyped_defs = true
+# no_implicit_optional = true
+# warn_redundant_casts = true
+# warn_unused_ignores = true
+
+# [[mypy-bidsgnostic._version]]
+# ignore_errors = true

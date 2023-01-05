@@ -1,0 +1,17 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@2.1.1
+
+jobs:
+  install_and_run:
+    executor: python/default
+    steps:
+      - checkout
+      - run: pip install .
+      - run: bidsgnostic tests/data/ds001 results participant -c24
+
+workflows:
+  build_test_deploy:
+    jobs:
+      - install_and_run
