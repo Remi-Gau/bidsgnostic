@@ -15,9 +15,6 @@ jobs:
     - run:
         name: build docker image
         command: |
-          if [[ -e "${HOME}/docker/image.tar" ]]; then
-              docker load -i "${HOME}/docker/image.tar"
-          fi
           git describe --tags --always > version
           docker build -t "bids/${CIRCLE_PROJECT_REPONAME,,}" .
           mkdir -p "${HOME}/docker"
@@ -61,11 +58,15 @@ jobs:
     - checkout
     - run: pip install -e .
     - run:
-        name: test internal data
+        name: test internal data at participant level
         command: |
           mkdir tmp
           cd tmp
-          bidsgnostic ../tests/data/ds001 results participant -c24
+          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2
+    - run:
+        name: test internal data at group level
+        command: |
+          bidsgnostic ../tests/data/ds001 results group -c24 --verbose --log_level 2
 
   test_external_data:
     executor: python/default
@@ -84,8 +85,9 @@ jobs:
             /tmp/workspace/data/ds114_test<< parameters.dataset >> \
             outputs<< parameters.dataset >> \
             participant \
+            -c1 --verbose --log_level 2 \
             --participant-label 01 \
-            -c24
+
 
   test_docker:
     machine:
@@ -103,11 +105,26 @@ jobs:
     - run: mkdir -p ${HOME}/outputs_docker_<< parameters.dataset >>
 
     - run:
+        name: participant level analysis ds114_test<< parameters.dataset >>
         command: |
-          docker run -ti --rm --read-only \
+          docker run -ti --rm \
             -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
             -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-              bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 01 02
+              bids/${CIRCLE_PROJECT_REPONAME,,} \
+                /bids_dataset \
+                /outputs participant \
+                -c1 --verbose --log_level 2 \
+                --participant_label 01 02
+    - run:
+        name: group level analysis ds114_test<< parameters.dataset >>
+        command: |
+          docker run -ti --rm \
+            -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
+            -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
+              bids/${CIRCLE_PROJECT_REPONAME,,} \
+                /bids_dataset \
+                /outputs group \
+                -c1 --verbose --log_level 2
 
     - store_artifacts:
         path: ~/outputs_docker_<< parameters.dataset >>
@@ -116,9 +133,11 @@ jobs:
 workflows:
   build_test_deploy:
     jobs:
-    - build
     - get_external_data
     - test_internal_data
+    - build:
+        requires:
+        - test_internal_data
     - test_external_data:
         requires:
         - get_external_data
