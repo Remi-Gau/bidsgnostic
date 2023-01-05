@@ -1,6 +1,9 @@
 bids_dir: '/path/to/bids_dir'
 output_dir: '/path/to/output_dir'
 
+snakemake_args:
+  - -c1
+
 #enable printing debug statements during parsing -- disable if generating dag visualization
 debug: False
 
@@ -22,17 +25,17 @@ targets_by_analysis_level:
 #    https://bids-standard.github.io/pybids/generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout.get
 
 pybids_inputs:
-  bold:
+  events:
     filters:
-      suffix: 'bold'
-      extension: '.nii.gz'
-      datatype: 'func'
+      suffix: "events"
+      extension: ".tsv"
     wildcards:
       - subject
       - session
       - acquisition
       - task
       - run
+
 
 #this configures the options to save the BIDSLayout
 # by default, database is not saved (uncomment to save)
