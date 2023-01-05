@@ -5,10 +5,10 @@ import shutil
 from pathlib import Path
 
 from bids import BIDSLayout
-from bids.visualize import LayoutPlotter
 from loguru import logger
 
 from bidsgnostic import _version
+from bidsgnostic.visualize import LayoutPlotter
 
 __version__ = _version.get_versions()["version"]
 
@@ -35,7 +35,7 @@ def add_license(snakemake) -> None:
     shutil.copy(input_file, output_file)
 
 
-def create_dataset_description(snakemake) -> None:
+def create_ds_desc(snakemake) -> None:
 
     data = {
         "Name": "dataset name",
@@ -74,10 +74,16 @@ def create_dataset_description(snakemake) -> None:
 
 def plot_layout(snakemake) -> None:
 
+    # logger.info(f"Indexing BIDS data: {snakemake.input.bids_dir}""")
     layout = BIDSLayout(snakemake.input.bids_dir)
     this = LayoutPlotter(layout)
+    output_file = Path(snakemake.output.datatype_html)
     this.plot(
-        output_dir=snakemake.output.dir,
-        filename=snakemake.output.file,
+        output_dir=output_file.parent,
         show=snakemake.params.log_level == "2",
     )
+    datatype_html = output_file.parent.glob("*_splitby-datatype_summary.html")
+    shutil.copy(next(datatype_html), snakemake.output.datatype_html)
+
+    task_html = output_file.parent.glob("*_splitby-task_summary.html")
+    shutil.copy(next(task_html), snakemake.output.task_html)

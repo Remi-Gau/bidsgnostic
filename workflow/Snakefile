@@ -1,11 +1,15 @@
-#---- begin snakebids boilerplate ----------------------------------------------
+# ---- begin snakebids boilerplate ----------------------------------------------
 
 from pathlib import Path
 
 import snakebids
 from snakebids import bids
 
-configfile: workflow.source_path('../config/snakebids.yml')
+from rich import print
+
+
+configfile: workflow.source_path("../config/snakebids.yml")
+
 
 # Get input wildcards
 inputs = snakebids.generate_inputs(
@@ -23,15 +27,18 @@ inputs.wildcards == {
     "events": {"subject": "{subject}", "task": "{task}", "run": "{run}"}
 }
 
-print(f"configuration:\n{config}")
+
+# this adds constraints to the bids naming
+wildcard_constraints:
+    **snakebids.get_wildcard_constraints(config["pybids_inputs"]),
 
 
+# ---- end snakebids boilerplate ------------------------------------------------
 
-#this adds constraints to the bids naming
-wildcard_constraints:  **snakebids.get_wildcard_constraints(config['pybids_inputs'])
+if config["log_level"] == "2":
+    print(f"Configuration:\n{config}")
 
-#---- end snakebids boilerplate ------------------------------------------------
-
+output_dir = Path(config["output_dir"]).joinpath("bidsgnostic")
 
 rule plot_events:
     input:
@@ -45,15 +52,51 @@ rule plot_events:
     script:
         "scripts/plot_events.py"
 
+
+rule layout_html:
+    input:
+        bids_dir=config["bids_dir"],
+    params:
+        log_level=config["log_level"],
+    output:
+        datatype_html=output_dir.joinpath("dataset_splitby-datatype_summary.html"),
+        task_html=output_dir.joinpath("dataset_splitby-task_summary.html"),
+    script:
+        "scripts/plot_layout.py"
+
+
+rule ds_desc:
+    input:
+        output_dir=config["output_dir"],
+    output:
+        license=output_dir.joinpath("dataset_description.json"),
+    script:
+        "scripts/ds_desc.py"
+
+
+rule license:
+    input:
+        output_dir=config["output_dir"],
+    output:
+        license=output_dir.joinpath("LICENSE"),
+    script:
+        "scripts/license.py"
+
+
+rule readme:
+    input:
+        output_dir=config["output_dir"],
+    output:
+        license=output_dir.joinpath("README.md"),
+    script:
+        "scripts/readme.py"
+
+
 rule top_files:
     input:
-        output_dir= config["output_dir"]
-    output:
-        desc = Path(config["output_dir"]).joinpath("bidsgnostic", "dataset_description.json"),
-        readme = Path(config["output_dir"]).joinpath("bidsgnostic", "README.md"),
-        license = Path(config["output_dir"]).joinpath("bidsgnostic", "LICENSE"),
-    script:
-        "scripts/add_top_files.py"
+        rules.ds_desc.output,
+        rules.license.output,
+        rules.readme.output,
 
 
 rule all:
@@ -64,7 +107,11 @@ rule all:
             ),
             **inputs.entities["events"]
         ),
-        rules.top_files.output.desc,
-        rules.top_files.output.readme,
-        rules.top_files.output.license,
+        rules.top_files.output,
     default_target: True
+
+
+rule group:
+    input:
+        rules.top_files.output,
+        rules.layout_html.output,
