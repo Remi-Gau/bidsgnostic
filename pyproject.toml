@@ -28,6 +28,7 @@ dependencies = [
   "rich",
   "snakebids>=0.7.1",
   "snakemake",
+  "ipywidgets>=7.0.0",
 ]
 dynamic = ["version"]
 
