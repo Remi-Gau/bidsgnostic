@@ -10,8 +10,6 @@ jobs:
     executor: python/default
     steps:
     - checkout
-    - python/install-packages:
-        pkg-manager: pip
     - run: pip install -e .
     - run: bidsgnostic tests/data/ds001 results participant -c24
 
@@ -22,8 +20,6 @@ jobs:
         type: string
     steps:
     - checkout
-    - python/install-packages:
-        pkg-manager: pip
     - run: pip install -e .
     - restore_cache:
         keys:
