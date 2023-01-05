@@ -62,8 +62,8 @@ repos:
   - id: pyupgrade
     args: [--py37-plus]
 
-- repo: https://github.com/snakemake/snakefmt
-  rev: v0.8.0
-  hooks:
-  - id: snakefmt
-    args: [bidsgnostic/workflow/Snakefile]
+# - repo: https://github.com/snakemake/snakefmt
+#   rev: v0.8.0
+#   hooks:
+#   - id: snakefmt
+#     args: [bidsgnostic/workflow/Snakefile]

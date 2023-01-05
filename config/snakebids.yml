@@ -1,23 +1,24 @@
-bids_dir: '/path/to/bids_dir'
-output_dir: '/path/to/output_dir'
+---
+bids_dir: /path/to/bids_dir
+output_dir: /path/to/output_dir
 
 snakemake_args:
-  - -c1
+- -c1
 
 #enable printing debug statements during parsing -- disable if generating dag visualization
-debug: False
+debug: false
 
-derivatives: False #will search in bids/derivatives if True; can also be path(s) to derivatives datasets
+derivatives: false #will search in bids/derivatives if True; can also be path(s) to derivatives datasets
 
 #list of analysis levels in the bids app
 analysis_levels: &analysis_levels
- - participant
+- participant
 
 
 #mapping from analysis_level to set of target rules or files
 targets_by_analysis_level:
   participant:
-    - ''  # if '', then the first rule is run
+  - ''    # if '', then the first rule is run
 
 #this configures the pybids grabber - create an entry for each type of input you want to grab
 # indexed by name of input
@@ -27,14 +28,14 @@ targets_by_analysis_level:
 pybids_inputs:
   events:
     filters:
-      suffix: "events"
-      extension: ".tsv"
+      suffix: events
+      extension: .tsv
     wildcards:
-      - subject
-      - session
-      - acquisition
-      - task
-      - run
+    - subject
+    - session
+    - acquisition
+    - task
+    - run
 
 
 #this configures the options to save the BIDSLayout
@@ -50,53 +51,43 @@ parse_args:
 #---  core BIDS-app options --- (do not modify below)
 
   bids_dir:
-    help: The directory with the input dataset formatted according
-          to the BIDS standard.
+    help: The directory with the input dataset formatted according to the BIDS standard.
 
   output_dir:
-    help: The directory where the output files
-          should be stored. If you are running group level analysis
-          this folder should be prepopulated with the results of the
-          participant level analysis.
+    help: The directory where the output files should be stored. If you are running group level analysis this folder should be prepopulated with the results
+      of the participant level analysis.
 
   analysis_level:
     help: Level of the analysis that will be performed.
     choices: *analysis_levels
 
   --participant_label:
-    help: The label(s) of the participant(s) that should be analyzed. The label
-          corresponds to sub-<participant_label> from the BIDS spec
-          (so it does not include "sub-"). If this parameter is not
-          provided all subjects should be analyzed. Multiple
-          participants can be specified with a space separated list.
-    nargs: '+'
+    help: The label(s) of the participant(s) that should be analyzed. The label corresponds to sub-<participant_label> from the BIDS spec (so it does not
+      include "sub-"). If this parameter is not provided all subjects should be analyzed. Multiple participants can be specified with a space separated
+      list.
+    nargs: +
 
   --exclude_participant_label:
-    help: The label(s) of the participant(s) that should be excluded. The label
-          corresponds to sub-<participant_label> from the BIDS spec
-          (so it does not include "sub-"). If this parameter is not
-          provided all subjects should be analyzed. Multiple
-          participants can be specified with a space separated list.
-    nargs: '+'
+    help: The label(s) of the participant(s) that should be excluded. The label corresponds to sub-<participant_label> from the BIDS spec (so it does not
+      include "sub-"). If this parameter is not provided all subjects should be analyzed. Multiple participants can be specified with a space separated
+      list.
+    nargs: +
 
   --derivatives:
     help: 'Path(s) to a derivatives dataset, for folder(s) that contains multiple derivatives datasets (default: %(default)s) '
-    default: False
-    nargs: '+'
+    default: false
+    nargs: +
 
   --log_level:
-    help:
-      The log_level level of the reporting that will be printed to the console.
-      The default is "0", which means that only warnings and errors will be
-      reported. If set to "1", all warnings, errors, and informational messages
-      will be reported. If set to "2", all warnings, errors, informational and
+    help: The log_level level of the reporting that will be printed to the console. The default is "0", which means that only warnings and errors will be
+      reported. If set to "1", all warnings, errors, and informational messages will be reported. If set to "2", all warnings, errors, informational and
       debug messages will be reported.
-    default: "0"
+    default: '0'
 
 
 #--- workflow specific configuration -- below is just an example:
 
 
-#singularity containers
-singularity:
-    fsl: 'docker://brainlife/fsl/6.0.0'
+# #singularity containers
+# singularity:
+#   fsl: docker://brainlife/fsl/6.0.0

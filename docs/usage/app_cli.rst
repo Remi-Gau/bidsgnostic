@@ -5,5 +5,3 @@ Command line interface
    :filename: ../bidsgnostic/run.py
    :func: get_parser
    :prog: bidsgnostic
-
-

@@ -11,11 +11,11 @@ Running the app
 ===============
 
 Do a dry-run first (``-n``) and simply print (``-p``) what would be run::
-    
+
     bidsgnostic /path/to/bids/dir /path/to/output/dir participant -np
 
 Run the app, using all cores::
-    
+
     bidsgnostic /path/to/bids/dir /path/to/output/dir participant --cores all
 
 If any workflow rules require containers, then run with the ``--use-singularity`` option.
@@ -24,10 +24,10 @@ If any workflow rules require containers, then run with the ``--use-singularity`
 Generating a report
 -------------------
 
-After your processing is complete, you can use snakemake's ``--report`` feature to generate 
-an HTML report. This report will include a graph of all the jobs run, with clickable nodes 
+After your processing is complete, you can use snakemake's ``--report`` feature to generate
+an HTML report. This report will include a graph of all the jobs run, with clickable nodes
 to inspect the shell command or python code used in each job, along with the config files and
-run times for each job. Workflows may also contain append images for quality assurance or to 
+run times for each job. Workflows may also contain append images for quality assurance or to
 summarize outputs, by using the ``report(...)`` function on any snakemake output.
 
 To generate a report, run::
@@ -54,7 +54,7 @@ Here are some instructions to get your python environment set-up on graham to ru
 Install job submission helpers
 ------------------------------
 
-Snakemake can submit jobs with SLURM, but you need to set-up a Snakemake profile to enable this. The Khan lab has a 
+Snakemake can submit jobs with SLURM, but you need to set-up a Snakemake profile to enable this. The Khan lab has a
 snakemake profile that is configured for graham but is customizable upon install, please see `cc-slurm <https://github.com/khanlab/cc-slurm>`_ for more info.
 
 If you don't need Snakemake to parallelize jobs across different nodes, you can make use of the simple job submission wrappers in `neuroglia-helpers <https://github.com/khanlab/neuroglia-helpers>`_, e.g. ``regularSubmit`` or ``regularInteractive`` wrappers.
@@ -65,7 +65,7 @@ Running jobs on Compute Canada
 ------------------------------
 
 In an interactive job (for testing)::
-    
+
     regularInteractive -n 8
     bidsgnostic bids_dir out_dir participant --participant_label 001 -j 8
 
@@ -76,11 +76,10 @@ Submitting a job (for larger cores, more subjects), still single job, but snakem
 
 
 Scaling up to ~hundred subjects (needs cc-slurm snakemake profile installed), submits 1 16core job per subject::
-    
+
     bidsgnostic bids_dir out_dir participant  --profile cc-slurm
 
 
 Scaling up to even more subjects (uses group-components to bundle multiple subjects in each job), 1 32core job for N subjects (e.g. 10)::
-    
-    bidsgnostic bids_dir out_dir participant  --profile cc-slurm --group-components subj=10
 
+    bidsgnostic bids_dir out_dir participant  --profile cc-slurm --group-components subj=10

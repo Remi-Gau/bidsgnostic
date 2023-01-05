@@ -1,16 +1,16 @@
 from __future__ import annotations
 
 import math
+import re
 import warnings
 from pathlib import Path
-import re
 from typing import Any
 
-from bids import BIDSLayout
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from bids import BIDSLayout
 from plotly.subplots import make_subplots
 
 
@@ -197,14 +197,12 @@ Creating a dummy trial_type column.
     """Wrapper methods"""
 
     def plot(self) -> None:
-        """Plot trial types.
-        """
+        """Plot trial types."""
         self.plot_trial_types()
         self._update_axes()
 
     def show(self) -> None:
-        """Show the figure.
-        """
+        """Show the figure."""
         self.fig.show()
 
     """Plotting methods"""

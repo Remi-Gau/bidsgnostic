@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 from __future__ import annotations
 
-import versioneer
-
-
 import setuptools
+import versioneer
 
 setuptools.setup(
     version=versioneer.get_version(),
