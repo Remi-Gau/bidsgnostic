@@ -1,6 +1,9 @@
-*.html
-results/
+get_ds114_test1.sh
 
+*.html
+
+outputs*
+results/
 tests/data/derivatives/
 
 # vs code stuff
@@ -13,7 +16,6 @@ tests/data/derivatives/
 .mypy_cache/
 
 # Python
-
 Pipfile
 
 # Byte-compiled / optimized / DLL files
