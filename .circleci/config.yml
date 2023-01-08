@@ -74,6 +74,7 @@ jobs:
     steps:
     - attach_workspace:
         at: /tmp/workspace
+    - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
     - checkout
     - run: pip install -e .
     - run:
@@ -85,6 +86,7 @@ jobs:
             participant \
             -c2 --verbose --log_level 2 \
             --participant-label 01 02
+
     # - run:
     #     name: test external data ds114_<< parameters.dataset >> at group level
     #     command: |
@@ -94,6 +96,9 @@ jobs:
     #         group \
     #         -c2 --verbose --log_level 2
 
+    - run:
+        name: list results
+        command: tree ${HOME}/outputs_docker_<< parameters.dataset >>
 
   test_docker:
     machine:
@@ -134,6 +139,7 @@ jobs:
                 /outputs participant \
                 -c1 --verbose --log_level 2 \
                 --participant_label 01 02
+
     # - run:
     #     name: group level analysis ds114_test<< parameters.dataset >>
     #     command: |
