@@ -1,0 +1,66 @@
+---
+bids_dir: /home/remi/github/bidsgnostic/foo
+output_dir: /home/remi/github/bidsgnostic/bar
+snakemake_args:
+- --version
+debug: false
+derivatives: false
+analysis_levels: &id001
+- participant
+targets_by_analysis_level:
+  participant:
+  - ''
+pybids_inputs:
+  events:
+    filters:
+      suffix: events
+      extension: .tsv
+    wildcards:
+    - subject
+    - session
+    - acquisition
+    - task
+    - run
+parse_args:
+  bids_dir:
+    help: The directory with the input dataset formatted according to the BIDS standard.
+  output_dir:
+    help: The directory where the output files should be stored. If you are running group level analysis this folder should be prepopulated with the results
+      of the participant level analysis.
+  analysis_level:
+    help: Level of the analysis that will be performed.
+    choices: *id001
+  --participant_label:
+    help: The label(s) of the participant(s) that should be analyzed. The label corresponds to sub-<participant_label> from the BIDS spec (so it does not
+      include "sub-"). If this parameter is not provided all subjects should be analyzed. Multiple participants can be specified with a space separated
+      list.
+    nargs: +
+  --exclude_participant_label:
+    help: The label(s) of the participant(s) that should be excluded. The label corresponds to sub-<participant_label> from the BIDS spec (so it does not
+      include "sub-"). If this parameter is not provided all subjects should be analyzed. Multiple participants can be specified with a space separated
+      list.
+    nargs: +
+  --derivatives:
+    help: 'Path(s) to a derivatives dataset, for folder(s) that contains multiple derivatives datasets (default: %(default)s) '
+    default: false
+    nargs: +
+  --log_level:
+    help: The log_level level of the reporting that will be printed to the console. The default is "0", which means that only warnings and errors will be
+      reported. If set to "1", all warnings, errors, and informational messages will be reported. If set to "2", all warnings, errors, informational and
+      debug messages will be reported.
+    default: '0'
+snakemake_dir: /home/remi/github/bidsgnostic
+snakefile: /home/remi/github/bidsgnostic/workflow/Snakefile
+pybids_db_reset: false
+workflow_mode: false
+force_conversion: false
+pybidsdb_dir:
+reset_db: false
+force_output: false
+retrofit: false
+help_snakemake:
+analysis_level: participant
+participant_label:
+exclude_participant_label:
+log_level: '0'
+root: ''

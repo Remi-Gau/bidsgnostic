@@ -13,12 +13,10 @@ jobs:
     steps:
     - checkout
     - run:
-        name: build docker image
+        name: Build Docker image
         command: |
-          git describe --tags --always > version
-          docker build -t "bids/${CIRCLE_PROJECT_REPONAME,,}" .
-          mkdir -p "${HOME}/docker"
-          docker save "bids/${CIRCLE_PROJECT_REPONAME,,}" > "${HOME}/docker/image.tar"
+          wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/circleci/build_docker.sh
+          bash build_docker.sh
     - persist_to_workspace:
         root: /home/circleci
         paths:
@@ -116,12 +114,22 @@ jobs:
     - run: mkdir -p ${HOME}/outputs_docker_<< parameters.dataset >>
 
     - run:
+        name: version
+        command: |
+          docker run -ti --rm \
+            -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
+            -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
+              ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} \
+                /bids_dataset \
+                /outputs participant --version
+
+    - run:
         name: participant level analysis ds114_test<< parameters.dataset >>
         command: |
           docker run -ti --rm \
             -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
             -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-              bids/${CIRCLE_PROJECT_REPONAME,,} \
+              ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} \
                 /bids_dataset \
                 /outputs participant \
                 -c1 --verbose --log_level 2 \
@@ -132,7 +140,7 @@ jobs:
     #       docker run -ti --rm \
     #         -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
     #         -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-    #           bids/${CIRCLE_PROJECT_REPONAME,,} \
+    #           ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} \
     #             /bids_dataset \
     #             /outputs group \
     #             -c1 --verbose --log_level 2
