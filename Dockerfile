@@ -16,7 +16,7 @@ COPY . /home/neuro/bidsgnostic
 WORKDIR /home/neuro/bidsgnostic
 
 RUN pip install --upgrade pip && \
-    pip install -e . && bidsgnostic
+    pip install -e .
 
 WORKDIR /home/neuro
 
