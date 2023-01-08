@@ -119,7 +119,7 @@ jobs:
           docker run -ti --rm \
             -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
             -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-              ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} \
+              remi-gau/bidsgnostic \
                 /bids_dataset \
                 /outputs participant --version
 
@@ -129,7 +129,7 @@ jobs:
           docker run -ti --rm \
             -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
             -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-              ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} \
+              remi-gau/bidsgnostic \
                 /bids_dataset \
                 /outputs participant \
                 -c1 --verbose --log_level 2 \
@@ -140,7 +140,7 @@ jobs:
     #       docker run -ti --rm \
     #         -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
     #         -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-    #           ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} \
+    #           remi-gau/bidsgnostic \
     #             /bids_dataset \
     #             /outputs group \
     #             -c1 --verbose --log_level 2
