@@ -98,7 +98,7 @@ jobs:
 
     - run:
         name: list results
-        command: tree ${HOME}/outputs_docker_<< parameters.dataset >>
+        command: tree ${HOME}/outputs<< parameters.dataset >>
 
   test_docker:
     machine:
