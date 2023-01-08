@@ -65,11 +65,11 @@ rule layout_html:
         "scripts/plot_layout.py"
 
 
-rule ds_desc:
+rule desc:
     input:
         output_dir=config["output_dir"],
     output:
-        license=output_dir.joinpath("dataset_description.json"),
+        desc=output_dir.joinpath("dataset_description.json"),
     script:
         "scripts/ds_desc.py"
 
@@ -87,31 +87,31 @@ rule readme:
     input:
         output_dir=config["output_dir"],
     output:
-        license=output_dir.joinpath("README.md"),
+        readme=output_dir.joinpath("README.md"),
     script:
         "scripts/readme.py"
 
-
+# not sure why top_files doe snot work
 rule top_files:
     input:
-        rules.ds_desc.output,
+        rules.desc.output,
         rules.license.output,
         rules.readme.output,
 
 
 rule all:
     input:
+        rules.top_files.input,
         expand(
             bids(
                 root="bidsgnostic", suffix="events.html", **inputs.wildcards["events"]
             ),
             **inputs.entities["events"]
         ),
-        rules.top_files.output,
     default_target: True
 
 
 rule group:
     input:
-        rules.top_files.output,
+        rules.top_files.input,
         rules.layout_html.output,
