@@ -13,15 +13,15 @@ derivatives: false #will search in bids/derivatives if True; can also be path(s)
 #list of analysis levels in the bids app
 analysis_levels: &analysis_levels
 - participant
-- group
+# - group
 
 
 #mapping from analysis_level to set of target rules or files
 targets_by_analysis_level:
   participant:
   - ''    # if '', then the first rule is run
-  group:
-  - group
+  # group:
+  # - group
 
 #this configures the pybids grabber - create an entry for each type of input you want to grab
 # indexed by name of input
