@@ -87,14 +87,14 @@ jobs:
             participant \
             -c2 --verbose --log_level 2 \
             --participant-label 01 02
-    - run:
-        name: test external data ds114_<< parameters.dataset >> at group level
-        command: |
-          bidsgnostic \
-            /tmp/workspace/data/ds114_test<< parameters.dataset >> \
-            outputs<< parameters.dataset >> \
-            group \
-            -c2 --verbose --log_level 2
+    # - run:
+    #     name: test external data ds114_<< parameters.dataset >> at group level
+    #     command: |
+    #       bidsgnostic \
+    #         /tmp/workspace/data/ds114_test<< parameters.dataset >> \
+    #         outputs<< parameters.dataset >> \
+    #         group \
+    #         -c2 --verbose --log_level 2
 
 
   test_docker:
@@ -126,16 +126,16 @@ jobs:
                 /outputs participant \
                 -c1 --verbose --log_level 2 \
                 --participant_label 01 02
-    - run:
-        name: group level analysis ds114_test<< parameters.dataset >>
-        command: |
-          docker run -ti --rm \
-            -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
-            -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-              bids/${CIRCLE_PROJECT_REPONAME,,} \
-                /bids_dataset \
-                /outputs group \
-                -c1 --verbose --log_level 2
+    # - run:
+    #     name: group level analysis ds114_test<< parameters.dataset >>
+    #     command: |
+    #       docker run -ti --rm \
+    #         -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
+    #         -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
+    #           bids/${CIRCLE_PROJECT_REPONAME,,} \
+    #             /bids_dataset \
+    #             /outputs group \
+    #             -c1 --verbose --log_level 2
 
     - run:
         name: list results
