@@ -36,7 +36,7 @@ jobs:
     - run:
         name: Get test data ds114_test1
         command: |
-          wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/circleci/get_data_from_osf.sh
+          wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/utils/get_data_from_osf.sh
           bash get_data_from_osf.sh get_ds114_test1
           bash get_data_from_osf.sh get_ds114_test2
     - save_cache:

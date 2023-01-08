@@ -8,7 +8,7 @@ demo:
 	bidsgnostic tests/data/ds001 results participant -c24
 
 get_ds114_test1:
-	wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/circleci/get_data_from_osf.sh
+	wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/utils/get_data_from_osf.sh
 	bash get_data_from_osf.sh ds114_test1
 
 test_ds114_test1:
