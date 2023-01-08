@@ -5,6 +5,7 @@ manual:
 	python bidsgnostic/run.py tests/data/ds001 results participant -c24 --manual
 
 demo:
+	mkdir -p results
 	bidsgnostic tests/data/ds001 results participant -c24
 
 get_ds114_test1:
