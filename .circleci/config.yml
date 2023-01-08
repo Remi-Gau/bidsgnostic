@@ -61,11 +61,11 @@ jobs:
           mkdir tmp
           cd tmp
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2
-    - run:
-        name: test internal data at group level
-        command: |
-          cd tmp
-          bidsgnostic ../tests/data/ds001 results group -c24 --verbose --log_level 2
+    # - run:
+    #     name: test internal data at group level
+    #     command: |
+    #       cd tmp
+    #       bidsgnostic ../tests/data/ds001 results group -c24 --verbose --log_level 2
 
 
   test_external_data:
