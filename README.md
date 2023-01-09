@@ -7,7 +7,7 @@ BIDS app to view:
 
 ![example output](docs/images/sub-01_task-balloonanalogrisktask_run-01_events.png)
 
-See [here for an interactive image]().
+See [here for an interactive image as html](https://github.com/Remi-Gau/bidsgnostic/raw/main/docs/images/sub-01_task-balloonanalogrisktask_run-01_events.html).
 
 ## Install from github with pip
 
@@ -32,7 +32,8 @@ usage: bidsgnostic [-h]
                 [--exclude_participant_label EXCLUDE_PARTICIPANT_LABEL [EXCLUDE_PARTICIPANT_LABEL ...]]
                 [--derivatives DERIVATIVES [DERIVATIVES ...]] [--log_level LOG_LEVEL]
                 [--filter-events FILTER_EVENTS [FILTER_EVENTS ...]] *
-                [--wildcards-events WILDCARDS_EVENTS [WILDCARDS_EVENTS ...]] [--path-events PATH_EVENTS]
+                [--wildcards-events WILDCARDS_EVENTS [WILDCARDS_EVENTS ...]]
+                [--path-events PATH_EVENTS]
                 bids_dir output_dir {participant}
 
 Snakebids helps build BIDS Apps with Snakemake
@@ -67,7 +68,8 @@ output_dir            The directory where the output files should be stored.
 {participant}         Level of the analysis that will be performed.
 
 --participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...], --participant-label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]
-                        The label(s) of the participant(s) that should be analyzed. The label corresponds to sub-<participant_label>
+                        The label(s) of the participant(s) that should be analyzed.
+                        The label corresponds to sub-<participant_label>
                         from the BIDS spec (so it does not include "sub-").
                         If this parameter is not provided all subjects should be analyzed.
                         Multiple participants can be specified with a space separated list.
