@@ -107,6 +107,10 @@ parse_args:
       Must be less than 15 events.
     nargs: +
 
+  --event_column:
+    help: |
+      Name of the column containing the events.
+    default: 'trial_type'
 
   # --version:
   #   action: "version"

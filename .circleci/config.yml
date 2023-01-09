@@ -53,6 +53,7 @@ jobs:
     steps:
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
       - checkout
+      - run: git submodule update --init --recursive && git submodule update --recursive
       - run: pip install -e .
       - run:
           name: test errors on internal data at participant level
@@ -103,7 +104,26 @@ jobs:
               --log_level 2
       - run:
           name: list results << parameters.dataset >>
-          command: tree tmp/results<< parameters.dataset >>
+          command: tree tmp/results_<< parameters.dataset >>
+
+
+  test_fnirs_data:
+    executor: python/default  
+    steps:
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
+      - checkout
+      - run: git submodule update --init --recursive && git submodule update --recursive      
+      - run: pip install -e .
+      - run:
+          name: test happy path on internal data at participant level
+          command: |
+            cd tmp
+            bidsgnostic ../tests/data/bids-examples/fnirs_automaticity \
+              results_fnirs_automaticity participant \
+              -c24 --verbose --log_level 2            
+      - run:
+          name: list results fnirs_automaticity
+          command: tree tmp/results_fnirs_automaticity
 
   test_external_data:
     executor: python/default
@@ -204,10 +224,11 @@ workflows:
   build_test_deploy:
     jobs:
       - get_external_data
+      - test_fnirs_data
       - test_internal_data:
           matrix:
             parameters:
-              dataset: ["ds001", "fnirs_automaticity"]      
+              dataset: ["ds001"]      
       - build:
           requires:
             - test_internal_data
