@@ -5,6 +5,7 @@ get_data_from_osf.sh
 
 outputs*
 results/
+tmp
 tests/data/derivatives/
 
 # vs code stuff
