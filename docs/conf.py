@@ -47,6 +47,7 @@ extensions = [
     "sphinx_rtd_theme",
     "sphinx.ext.intersphinx",
     "sphinx.ext.autodoc",
+    "sphinx_copybutton",
     "myst_parser",
     "sphinxarg.ext",
 ]
