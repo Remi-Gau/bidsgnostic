@@ -107,7 +107,7 @@ jobs:
           command: tree tmp/results_<< parameters.dataset >>
 
 
-  test_fnirs_data:
+  test_data_event_colmun:
     executor: python/default  
     steps:
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
@@ -120,6 +120,7 @@ jobs:
             cd tmp
             bidsgnostic ../tests/data/bids-examples/fnirs_automaticity \
               results_fnirs_automaticity participant \
+              --event_column event_type \
               -c24 --verbose --log_level 2            
       - run:
           name: list results fnirs_automaticity
@@ -224,7 +225,7 @@ workflows:
   build_test_deploy:
     jobs:
       - get_external_data
-      - test_fnirs_data
+      - test_data_event_colmun
       - test_internal_data:
           matrix:
             parameters:

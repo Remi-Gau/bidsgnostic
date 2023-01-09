@@ -3,7 +3,11 @@ from pathlib import Path
 
 from bidsgnostic.visualize import EventPlotter
 
-this = EventPlotter(snakemake.input.events, include=snakemake.params.include_events)
+this = EventPlotter(
+    snakemake.input.events,
+    include=snakemake.params.include_events,
+    event_column=snakemake.params.event_column,
+)
 
 with open(snakemake.output.file, "w") as f:
     f.write(
