@@ -13,15 +13,29 @@ def main(
     output_dir: Path,
     filters: dict[str, list[str]] | None = None,
     plot_by: list[str] | None = None,
-    log_level: int = "1",
+    log_level: str = "1",
 ) -> None:
 
-    if int(log_level) > 0:
+    if log_level != "0":
         logger.info(f"indexing dataset {bids_dir}")
     layout = BIDSLayout(bids_dir)
 
-    if int(log_level) > 0:
+    if log_level != "0":
         logger.info(f"plotting events filtered by {filters} split by {plot_by}")
-    LayoutPlotter(layout, filters=filters).plot(
-        plot_by=plot_by, show=log_level == "2", output_dir=output_dir
-    )
+
+    this = LayoutPlotter(layout, filters=filters)
+
+    suffixes = ["datatype", "task"]
+    if plot_by is not None:
+        suffixes += plot_by
+    for i in suffixes:
+        if i in ("", None):
+            continue
+        with open(output_dir.joinpath(this._fig_name(suffix=i)), "w") as f:
+            f.write(f"No data found in {bids_dir} for filters {filters}")
+
+    with open(output_dir.joinpath(this._fig_name(suffix="datatype")), "w") as f:
+        f.write(f"No data found in {bids_dir} for filters {filters}")
+
+    if this.df_layout.size > 0:
+        this.plot(plot_by=plot_by, show=log_level == "2", output_dir=output_dir)

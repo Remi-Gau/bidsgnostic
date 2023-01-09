@@ -3,8 +3,8 @@ bidsgnostic
 
 BIDS app to view:
 
-- the dataset content
-- events file content
+    - the dataset content
+    - events file content
 
 
 Install from github with pip
@@ -59,7 +59,7 @@ all the gory details of the API
 subject Level
 _____________
 
-.. code-block::
+.. code-block:: text
 
     usage: bidsgnostic [-h]
                     [--pybidsdb-dir PYBIDSDB_DIR]
@@ -158,7 +158,7 @@ _____________
 group Level
 ___________
 
-.. code-block::
+.. code-block:: text
 
     usage: bidsgnostic_layout [-h]
                               [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]

@@ -59,6 +59,7 @@ jobs:
           mkdir tmp
           cd tmp
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 01 02
+          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 666
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events pumps_demean
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events foo
@@ -67,6 +68,10 @@ jobs:
         command: |
           cd tmp
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2
+          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 01 02
+          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 666
+          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --plot_by suffix
+          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --plot_by foo
 
 
   test_external_data:
