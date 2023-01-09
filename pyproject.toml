@@ -38,6 +38,12 @@ doc = [
   "numpydoc",
   "sphinx_rtd_theme",
   "myst_nb",
+  "myst-parser",
+  "rstcheck",
+  "sphinx-argparse",
+  "sphinx-copybutton",
+  "sphinxcontrib-matlabdomain",
+  "sphinxcontrib-mermaid",
 ]
 test = [
   "tox",

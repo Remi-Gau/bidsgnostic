@@ -1,5 +1,5 @@
 Command line interface
---------------------
+----------------------
 
 .. argparse::
    :filename: ../bidsgnostic/run.py

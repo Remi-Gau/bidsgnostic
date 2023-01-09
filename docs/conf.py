@@ -12,12 +12,30 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 # import sphinx_rtd_theme
+from __future__ import annotations
+
+import os
+import sys
+
+from bidsgnostic import _version
+
+sys.path.insert(0, os.path.abspath("../.."))
+
 # -- Project information -----------------------------------------------------
 
 
 project = "bidsgnostic"
 copyright = "2021, Remi Gau"
 author = "Remi Gau"
+
+# The version info for the project you're documenting, acts as replacement
+# for |version| and |release|, also used in various other places throughout
+# the built documents.
+#
+# The short X.Y version.
+
+
+version = _version.get_versions()["version"]
 
 
 # -- General configuration ---------------------------------------------------
@@ -27,6 +45,13 @@ author = "Remi Gau"
 # ones.
 extensions = [
     "sphinx_rtd_theme",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.coverage",
+    "sphinxcontrib.matlab",
+    "sphinxcontrib.mermaid",
+    "sphinx_copybutton",
+    "myst_parser",
     "sphinxarg.ext",
 ]
 
@@ -47,9 +72,13 @@ master_doc = "index"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+# html_theme = "sphinx_rtd_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
+# html_static_path = ["_static"]
+
+
+# Output file base name for HTML help builder.
+htmlhelp_basename = "bidsgnostic"

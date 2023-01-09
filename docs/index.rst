@@ -17,6 +17,7 @@
    :maxdepth: 1
 
    getting_started/installation
+   getting_started/example
 
 .. toctree::
   :caption: Usage
