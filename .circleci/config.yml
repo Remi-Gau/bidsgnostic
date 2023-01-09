@@ -47,6 +47,9 @@ jobs:
 
   test_internal_data:
     executor: python/default
+    parameters:
+      dataset:
+        type: string    
     steps:
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
       - checkout
@@ -57,31 +60,50 @@ jobs:
             mkdir tmp
             cd tmp
             # cannot be tested yet
-            # bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2 --participant_label 666
-            bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2 --include_events foo
+            # bidsgnostic ../tests/data/bids-examples/ds001 results_<< parameters.dataset >> participant && \
+            #   -c24 --verbose --log_level 2 --participant_label 666
+            bidsgnostic ../tests/data/bids-examples/<< parameters.dataset >> \
+              results_<< parameters.dataset >> participant \
+              -c24 --verbose --log_level 2 --include_events foo
       - run:
           name: test happy path on internal data at participant level
           command: |
             cd tmp
-            bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2 --participant_label 01 02
-            bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2 --include_events pumps_demean
-            bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2
+            bidsgnostic ../tests/data/bids-examples/<< parameters.dataset >> \
+              results_<< parameters.dataset >> participant \
+              -c24 --verbose --log_level 2 --participant_label 01 02
+            bidsgnostic ../tests/data/bids-examples/<< parameters.dataset >> \
+              results_<< parameters.dataset >> participant \
+              -c24 --verbose --log_level 2 --include_events pumps_demean
+            bidsgnostic ../tests/data/bids-examples/<< parameters.dataset >> \
+              results_<< parameters.dataset >> participant \
+              -c24 --verbose --log_level 2            
       - run:
           name: test errors on internal data at group level
           command: |
             cd tmp
-            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2 --participant_label 01 02
-            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2 --participant_label 666
+            bidsgnostic_layout ../tests/data/bids-examples/<< parameters.dataset >> \
+              results_<< parameters.dataset >> group \
+              --log_level 2 --participant_label 01 02
+            bidsgnostic_layout ../tests/data/bids-examples/<< parameters.dataset >> \
+              results_<< parameters.dataset >> group \
+              --log_level 2 --participant_label 666
       - run:
           name: test happy path on internal data at group level
           command: |
             cd tmp
-            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2 --participant_label 01 02
-            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2 --plot_by suffix
-            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2
+            bidsgnostic_layout ../tests/data/bids-examples/<< parameters.dataset >> \
+              results_<< parameters.dataset >> group \
+              --log_level 2 --participant_label 01 02
+            bidsgnostic_layout ../tests/data/bids-examples/<< parameters.dataset >> \
+              results_<< parameters.dataset >> group \
+              --log_level 2 --plot_by suffix
+            bidsgnostic_layout ../tests/data/bids-examples/<< parameters.dataset >> \
+              results_<< parameters.dataset >> group  \
+              --log_level 2
       - run:
-          name: list results
-          command: tree tmp/results
+          name: list results << parameters.dataset >>
+          command: tree tmp/results<< parameters.dataset >>
 
   test_external_data:
     executor: python/default
@@ -182,7 +204,10 @@ workflows:
   build_test_deploy:
     jobs:
       - get_external_data
-      - test_internal_data
+      - test_internal_data:
+          matrix:
+            parameters:
+              dataset: ["ds001", "fnirs_automaticity"]      
       - build:
           requires:
             - test_internal_data
@@ -200,3 +225,5 @@ workflows:
           matrix:
             parameters:
               dataset: ["1", "2"]
+
+# VS Code Extension Version: 1.5.1
