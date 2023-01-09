@@ -133,6 +133,13 @@ _____________
                             and informational messages will be reported.
                             If set to "2", all warnings, errors,
                             informational and debug messages will be reported.
+    --include-events INCLUDE_EVENTS [INCLUDE_EVENTS ...],
+                        A list of events name to include in the plot.
+                        If none is passed then all events will be included.
+                        Must be less than 15 events.
+    --exclude-events EXCLUDE_EVENTS [EXCLUDE_EVENTS ...],
+                        A list of events name to exclude from the plot.
+                        If none is passed then all events will be included.
 
     BIDS FILTERS:
     Filters to customize PyBIDS get() as key=value pairs
