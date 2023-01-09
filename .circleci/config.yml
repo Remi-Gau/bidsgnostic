@@ -51,6 +51,7 @@ jobs:
   test_internal_data:
     executor: python/default
     steps:
+    - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
     - checkout
     - run: pip install -e .
     - run:
@@ -60,19 +61,21 @@ jobs:
           cd tmp
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 01 02
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 666
-          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events pumps_demean
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events foo
+          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2
     - run:
         name: test internal data at group level
         command: |
           cd tmp
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 01 02
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 666
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --plot_by suffix
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --plot_by foo
-
+          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2
+    - run:
+        name: list results
+        command: tree results
 
   test_external_data:
     executor: python/default
@@ -92,8 +95,7 @@ jobs:
             /tmp/workspace/data/ds114_test<< parameters.dataset >> \
             outputs<< parameters.dataset >> \
             participant \
-            -c2 --verbose --log_level 2 \
-            --participant-label 01 02
+            -c2 --verbose --log_level 2
 
     - run:
         name: test external data ds114_<< parameters.dataset >> at group level
@@ -107,6 +109,9 @@ jobs:
     - run:
         name: list results
         command: tree outputs<< parameters.dataset >>
+
+    - store_artifacts:
+        path: ~/outputs<< parameters.dataset >>
 
   test_docker:
     machine:
