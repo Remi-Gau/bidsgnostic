@@ -46,7 +46,6 @@ rule plot_events:
     params:
         log_level=config["log_level"],
         include_events=config["include_events"],
-        exclude_events=config["exclude_events"],
     output:
         file=bids(
             root="bidsgnostic", suffix="events.html", **inputs.wildcards["events"]
