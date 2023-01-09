@@ -17,7 +17,7 @@ from __future__ import annotations
 import os
 import sys
 
-from bidsgnostic import _version
+# from bidsgnostic import _version
 
 sys.path.insert(0, os.path.abspath("../.."))
 
@@ -34,8 +34,10 @@ author = "Remi Gau"
 #
 # The short X.Y version.
 
-
-version = _version.get_versions()["version"]
+# TODO find a way to make this dynamic
+# seems that readthedocs can't install doc dependencies stored in pyproject.toml
+# threrefore we need to hardcode the version here instead of getting it from versioneer
+version = "0.1.0"
 
 
 # -- General configuration ---------------------------------------------------
