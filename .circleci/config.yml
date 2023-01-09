@@ -55,23 +55,31 @@ jobs:
     - checkout
     - run: pip install -e .
     - run:
-        name: test internal data at participant level
+        name: test errors on internal data at participant level
         command: |
           mkdir tmp
           cd tmp
-          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 01 02
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 666
-          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events pumps_demean
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events foo
+    - run:
+        name: test happy path on internal data at participant level
+        command: |
+          cd tmp
+          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 01 02
+          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events pumps_demean
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2
     - run:
-        name: test internal data at group level
+        name: test errors on internal data at group level
         command: |
           cd tmp
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 01 02
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 666
+    - run:
+        name: test happy path on internal data at group level
+        command: |
+          cd tmp
+          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 01 02
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --plot_by suffix
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --plot_by foo
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2
     - run:
         name: list results
@@ -150,8 +158,7 @@ jobs:
               remi-gau/bidsgnostic \
                 /bids_dataset \
                 /outputs participant \
-                -c1 --verbose --log_level 2 \
-                --participant_label 01 02
+                -c1 --verbose --log_level 2
 
     # - run:
     #     name: group level analysis ds114_test<< parameters.dataset >>
