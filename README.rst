@@ -1,22 +1,23 @@
 
 
 .. image:: https://img.shields.io/badge/license-GPL3-blue.svg
-    :alt: license GPL3
+   :target: https://raw.githubusercontent.com/Remi-Gau/bidsgnostic/main/LICENSE
+   :alt: license GPL3
 .. image:: https://results.pre-commit.ci/badge/github/Remi-Gau/bidsgnostic/main.svg
-    :target: https://results.pre-commit.ci/latest/github/Remi-Gau/bidsgnostic/main
-    :alt: precommit status
+   :target: https://results.pre-commit.ci/latest/github/Remi-Gau/bidsgnostic/main
+   :alt: precommit status
 .. image:: https://readthedocs.org/projects/bidsgnostic/badge/?version=latest
-    :target: https://bidsgnostic.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation status
+   :target: https://bidsgnostic.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation status
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :target: https://github.com/psf/black
-    :alt: black
+   :target: https://github.com/psf/black
+   :alt: black
 .. image:: https://img.shields.io/badge/Sourcery-enabled-brightgreen.svg
-    :target: https://sourcery.ai
-    :alt: sourcery
+   :target: https://sourcery.ai
+   :alt: sourcery
 .. image:: https://dl.circleci.com/status-badge/img/gh/Remi-Gau/bidsgnostic/tree/main.svg?style=svg
-    :target: https://dl.circleci.com/status-badge/redirect/gh/Remi-Gau/bidsgnostic/tree/main
-    :alt: circle ci
+   :target: https://dl.circleci.com/status-badge/redirect/gh/Remi-Gau/bidsgnostic/tree/main
+   :alt: circle ci
 
 bidsgnostic
 ===========
