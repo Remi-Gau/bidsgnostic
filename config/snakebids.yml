@@ -1,33 +1,15 @@
 ---
-bids_dir: /path/to/bids_dir
-output_dir: /path/to/output_dir
-
+bids_dir: /home/remi/github/bidsgnostic/tests/data/ds001
+output_dir: /home/remi/github/bidsgnostic/results
 snakemake_args:
-- -c1
-
-#enable printing debug statements during parsing -- disable if generating dag visualization
+- -c24
 debug: false
-
-derivatives: false #will search in bids/derivatives if True; can also be path(s) to derivatives datasets
-
-#list of analysis levels in the bids app
-analysis_levels: &analysis_levels
+derivatives: false
+analysis_levels: &id001
 - participant
-# - group
-
-
-#mapping from analysis_level to set of target rules or files
 targets_by_analysis_level:
   participant:
-  - ''    # if '', then the first rule is run
-  # group:
-  # - group
-
-#this configures the pybids grabber - create an entry for each type of input you want to grab
-# indexed by name of input
-#   dictionary for each input is passed directly to pybids get()
-#    https://bids-standard.github.io/pybids/generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout.get
-
+  - ''
 pybids_inputs:
   events:
     filters:
@@ -39,82 +21,51 @@ pybids_inputs:
     - acquisition
     - task
     - run
-
-
-#this configures the options to save the BIDSLayout
-# by default, database is not saved (uncomment to save)
-# NOTE: pybids_db_dir must be an absolute path
-# pybids_db_dir: '/path/to/db_dir' # Leave blank if you do not wish to use this
-# pybids_db_reset: False # Change this to true to update the database
-
-#configuration for the command-line parameters to make available
-# passed on the argparse add_argument()
 parse_args:
-
-#---  core BIDS-app options --- (do not modify below)
-
   bids_dir:
-    help: |
-      The directory with the input dataset formatted according to the BIDS standard.
-
+    help: "The directory with the input dataset formatted according to the BIDS standard.\n"
   output_dir:
-    help: |
-      The directory where the output files should be stored.
-      If you are running group level analysis this folder
-      should be prepopulated with the results of the participant level analysis.
-
+    help: "The directory where the output files should be stored.\nIf you are running group level analysis this folder\nshould be prepopulated with the\
+      \ results of the participant level analysis.\n"
   analysis_level:
     help: Level of the analysis that will be performed.
-    choices: *analysis_levels
-
+    choices: *id001
   --participant_label:
-    help: |
-      The label(s) of the participant(s) that should be analyzed.
-      The label corresponds to sub-<participant_label> from the BIDS spec
-      (so it does not include "sub-").
-      If this parameter is not provided all subjects should be analyzed.
-      Multiple participants can be specified with a space separated list.
+    help: "The label(s) of the participant(s) that should be analyzed.\nThe label corresponds to sub-<participant_label> from the BIDS spec\n(so it does\
+      \ not include \"sub-\").\nIf this parameter is not provided all subjects should be analyzed.\nMultiple participants can be specified with a space\
+      \ separated list.\n"
     nargs: +
-
   --exclude_participant_label:
-    help: |
-      The label(s) of the participant(s) that should be excluded.
-      The label corresponds to sub-<participant_label> from the BIDS spec
-      (so it does not include "sub-").
-      If this parameter is not provided all subjects should be analyzed.
-      Multiple participants can be specified with a space separated list.
+    help: "The label(s) of the participant(s) that should be excluded.\nThe label corresponds to sub-<participant_label> from the BIDS spec\n(so it does\
+      \ not include \"sub-\").\nIf this parameter is not provided all subjects should be analyzed.\nMultiple participants can be specified with a space\
+      \ separated list.\n"
     nargs: +
-
   --derivatives:
-    help: |
-      'Path(s) to a derivatives dataset, for folder(s)
-      that contains multiple derivatives datasets (default: %(default)s).'
+    help: "'Path(s) to a derivatives dataset, for folder(s)\nthat contains multiple derivatives datasets (default: %(default)s).'\n"
     default: false
     nargs: +
-
   --log_level:
-    help: |
-      The log_level level of the reporting that will be printed to the console.
-      The default is "0", which means that only warnings and errors will be reported.
-      If set to "1", all warnings, errors, and informational messages will be reported.
-      If set to "2", all warnings, errors, informational and debug messages will be reported.
+    help: "The log_level level of the reporting that will be printed to the console.\nThe default is \"0\", which means that only warnings and errors will\
+      \ be reported.\nIf set to \"1\", all warnings, errors, and informational messages will be reported.\nIf set to \"2\", all warnings, errors, informational\
+      \ and debug messages will be reported.\n"
     default: '0'
-
   --include_events:
-    help: |
-      A list of events name to include in the plot.
-      If none is passed then all events will be included.
-      Must be less than 15 events.
+    help: "A list of events name to include in the plot.\nIf none is passed then all events will be included.\nMust be less than 15 events.\n"
     nargs: +
-
-
-  # --version:
-  #   action: "version"
-  #   help: "show program's version number and exit"
-
-#--- workflow specific configuration -- below is just an example:
-
-
-# #singularity containers
-# singularity:
-#   fsl: docker://brainlife/fsl/6.0.0
+snakemake_dir: /home/remi/github/bidsgnostic
+snakefile: /home/remi/github/bidsgnostic/workflow/Snakefile
+pybids_db_reset: false
+workflow_mode: false
+force_conversion: false
+pybidsdb_dir:
+reset_db: false
+force_output: false
+retrofit: false
+help_snakemake:
+analysis_level: participant
+participant_label:
+- '666'
+exclude_participant_label:
+log_level: '2'
+include_events:
+root: ''

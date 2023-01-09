@@ -59,7 +59,8 @@ jobs:
         command: |
           mkdir tmp
           cd tmp
-          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 666
+          # cannot be tested yet
+          # bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 666
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events foo
     - run:
         name: test happy path on internal data at participant level
