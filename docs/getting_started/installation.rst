@@ -33,8 +33,3 @@ summarize outputs, by using the ``report(...)`` function on any snakemake output
 To generate a report, run::
 
     bidsgnostic /path/to/bids/dir /path/to/output/dir participant --report
-
-
-```{include} ../images/README.md
-
-```

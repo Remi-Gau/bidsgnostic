@@ -42,8 +42,6 @@ doc = [
   "rstcheck",
   "sphinx-argparse",
   "sphinx-copybutton",
-  "sphinxcontrib-matlabdomain",
-  "sphinxcontrib-mermaid",
 ]
 test = [
   "tox",
