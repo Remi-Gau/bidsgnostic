@@ -101,14 +101,12 @@ parse_args:
     default: '0'
 
   --include_events:
-    help: A list of events name to include in the plot. If none is passed then all events will be included. Must be less than 15 events.
+    help: |
+      A list of events name to include in the plot.
+      If none is passed then all events will be included.
+      Must be less than 15 events.
     nargs: +
-    default: ''
 
-  --exclude_events:
-    help: A list of events name to exclude from the plot. If none is passed then all events will be included.
-    nargs: +
-    default: ''
 
   # --version:
   #   action: "version"
