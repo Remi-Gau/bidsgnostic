@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. .. include:: ../README.md
+.. include:: ../README.rst
 
 .. toctree::
    :maxdepth: 1
@@ -25,5 +25,4 @@
   :hidden:
   :maxdepth: 1
 
-  usage/app_cli
   usage/snakemake_cli

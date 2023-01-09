@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+
+title: "bidsgnostic"
+
+version: 0.1.0
+
+abstract: |
+        "BIDS app to view:
+          - the dataset content
+          - events file content"
+
+message: "If you use this software, please cite it as below."
+
+repository-code: "https://github.com/Remi-Gau/bidsgnostic.git "
+
+contact:
+  - affiliation: "Université catholique de Louvain"
+    email: remi.gau@uclouvain.be
+    family-names: Gau
+    given-names: Rémi
+
+license: GPL-3.0
+
+keywords:
+  - BIDS
+  - brain imaging data structure
+  - neuroimaging
+  - automated pipeline
+  - Python
+  - data visualization
+  - qualtiy control
