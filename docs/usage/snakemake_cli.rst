@@ -1,5 +1,5 @@
-Snakemake Command line interface
-________________________________
+Snakemake CLI
+_____________
 
 .. argparse::
    :module: snakemake
