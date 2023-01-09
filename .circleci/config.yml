@@ -81,7 +81,7 @@ jobs:
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2
     - run:
         name: list results
-        command: tree results
+        command: tree tmp/results
 
   test_external_data:
     executor: python/default
@@ -101,7 +101,8 @@ jobs:
             /tmp/workspace/data/ds114_test<< parameters.dataset >> \
             outputs<< parameters.dataset >> \
             participant \
-            -c2 --verbose --log_level 2
+            -c2 --verbose --log_level 2 \
+            --participant_label 01 02
 
     - run:
         name: test external data ds114_<< parameters.dataset >> at group level
