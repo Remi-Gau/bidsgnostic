@@ -23,8 +23,8 @@ Usage
 short form
 **********
 
-subject Level
-_____________
+participant level
+_________________
 
 .. code-block:: bash
 
@@ -49,8 +49,6 @@ ___________
 .. image:: https://raw.githubusercontent.com/Remi-Gau/bidsgnostic/main/docs/images/dataset-balloonanalogrisktakingtask_splitby-suffix_summary.png
   :width: 1000
   :alt: example group output
-
-docs/images/
 
 See `here for group level interactive figure as html <https://github.com/Remi-Gau/bidsgnostic/raw/main/docs/images/dataset-balloonanalogrisktakingtask_splitby-suffix_summary.html>`_.
 

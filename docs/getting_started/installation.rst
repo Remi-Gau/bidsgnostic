@@ -3,12 +3,15 @@ Installation
 
 Install from github with pip::
 
-    pip install -e git+https://github.com/Remi-Gau/bidsgnostic
+    pip install -e git+https://github.com/Remi-Gau/bidsgnostic#egg=bidsgnostic
 
 Note: you can re-run this command to re-install with the latest version
 
 Running the app
 ===============
+
+participant level
+-----------------
 
 Do a dry-run first (``-n``) and simply print (``-p``) what would be run::
 
@@ -33,3 +36,10 @@ summarize outputs, by using the ``report(...)`` function on any snakemake output
 To generate a report, run::
 
     bidsgnostic /path/to/bids/dir /path/to/output/dir participant --report
+
+
+
+group level
+-----------
+
+    bidsgnostic_layout /path/to/bids/dir /path/to/output/dir group
