@@ -19,6 +19,12 @@ contact:
     family-names: Gau
     given-names: Rémi
 
+authors:
+  - affiliation: "Université catholique de Louvain"
+    email: remi.gau@uclouvain.be
+    family-names: Gau
+    given-names: Rémi
+
 license: GPL-3.0
 
 keywords:
