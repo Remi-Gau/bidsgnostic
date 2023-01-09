@@ -20,7 +20,7 @@ test_ds114_test1:
 		outputs1 \
 		participant \
 		-c2 --verbose --log_level 2 \
-		--participant-label 01 02
+		--participant_label 01 02
 	bidsgnostic \
 		~/data/ds114_test1 \
 		outputs1 \

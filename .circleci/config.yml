@@ -5,7 +5,6 @@ orbs:
   python: circleci/python@2.1.1
 
 jobs:
-
   build:
     machine:
       # https://circleci.com/developer/machine/image/ubuntu-2204
@@ -21,7 +20,6 @@ jobs:
         root: /home/circleci
         paths:
         - docker/image.tar
-
 
   get_external_data:
     machine:
@@ -47,7 +45,6 @@ jobs:
         - data/ds114_test1
         - data/ds114_test2
 
-
   test_internal_data:
     executor: python/default
     steps:
@@ -60,26 +57,26 @@ jobs:
           mkdir tmp
           cd tmp
           # cannot be tested yet
-          # bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 666
+          # bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant_label 666
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events foo
     - run:
         name: test happy path on internal data at participant level
         command: |
           cd tmp
-          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant-label 01 02
+          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant_label 01 02
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events pumps_demean
           bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2
     - run:
         name: test errors on internal data at group level
         command: |
           cd tmp
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 01 02
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 666
+          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant_label 01 02
+          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant_label 666
     - run:
         name: test happy path on internal data at group level
         command: |
           cd tmp
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant-label 01 02
+          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant_label 01 02
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --plot_by suffix
           bidsgnostic_layout ../tests/data/ds001 results group --log_level 2
     - run:
@@ -131,7 +128,6 @@ jobs:
         type: string
 
     steps:
-
     - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
 
     - attach_workspace:
@@ -161,16 +157,16 @@ jobs:
                 /outputs participant \
                 -c1 --verbose --log_level 2
 
-    # - run:
-    #     name: group level analysis ds114_test<< parameters.dataset >>
-    #     command: |
-    #       docker run -ti --rm \
-    #         -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
-    #         -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-    #           remi-gau/bidsgnostic \
-    #             /bids_dataset \
-    #             /outputs group \
-    #             -c1 --verbose --log_level 2
+      # - run:
+      #     name: group level analysis ds114_test<< parameters.dataset >>
+      #     command: |
+      #       docker run -ti --rm \
+      #         -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
+      #         -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
+      #           remi-gau/bidsgnostic \
+      #             /bids_dataset \
+      #             /outputs group \
+      #             -c1 --verbose --log_level 2
 
     - run:
         name: list results
@@ -178,7 +174,6 @@ jobs:
 
     - store_artifacts:
         path: ~/outputs_docker_<< parameters.dataset >>
-
 
 workflows:
   build_test_deploy:
