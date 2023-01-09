@@ -156,7 +156,8 @@ jobs:
               remi-gau/bidsgnostic \
                 /bids_dataset \
                 /outputs participant \
-                -c1 --verbose --log_level 2
+                -c1 --verbose --log_level 2 \
+            --participant_label 01 02
 
       # - run:
       #     name: group level analysis ds114_test<< parameters.dataset >>
