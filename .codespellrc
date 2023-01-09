@@ -1,4 +1,4 @@
 [codespell]
-skip = .git,.mypy_cache
+skip = .git,.mypy_cache,*.html,env,_build
 ignore-words-list = fo,
 builtin = clear,rare

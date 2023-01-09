@@ -6,12 +6,6 @@ BIDS app to view:
 - the dataset content
 - events file content
 
-.. image:: https://raw.githubusercontent.com/Remi-Gau/bidsgnostic/main/docs/images/sub-01_task-balloonanalogrisktask_run-01_events.png
-  :width: 1000
-  :alt: example output
-
-
-See `here for an interactive image as html <https://github.com/Remi-Gau/bidsgnostic/raw/main/docs/images/sub-01_task-balloonanalogrisktask_run-01_events.html>`_.
 
 Install from github with pip
 ----------------------------
@@ -29,12 +23,43 @@ Usage
 short form
 **********
 
+subject Level
+_____________
+
 .. code-block:: bash
 
     bidsgnostic /path/to/bids/dir /path/to/output/dir participant --cores all
 
+.. image:: https://raw.githubusercontent.com/Remi-Gau/bidsgnostic/main/docs/images/sub-01_task-balloonanalogrisktask_run-01_events.png
+  :width: 1000
+  :alt: example particicant output
+
+See `here for participant level interactive figure as html <https://github.com/Remi-Gau/bidsgnostic/raw/main/docs/images/sub-01_task-balloonanalogrisktask_run-01_events.html>`_.
+
+Figures will not be generated if your events have more than 14 type of events.
+If that is the case use the ``include`` argument to select which events you want to see.
+
+group level
+___________
+
+.. code-block:: bash
+
+    bidsgnostic_layout /path/to/bids/dir /path/to/output/dir group
+
+.. image:: https://raw.githubusercontent.com/Remi-Gau/bidsgnostic/main/docs/images/dataset-balloonanalogrisktakingtask_splitby-suffix_summary.png
+  :width: 1000
+  :alt: example group output
+
+docs/images/
+
+See `here for group level interactive figure as html <https://github.com/Remi-Gau/bidsgnostic/raw/main/docs/images/dataset-balloonanalogrisktakingtask_splitby-suffix_summary.html>`_.
+
+
 all the gory details of the API
 *******************************
+
+subject Level
+_____________
 
 .. code-block::
 
@@ -126,3 +151,35 @@ all the gory details of the API
     e.g.: /path/to/my_data/{subject}/t1.nii.gz
 
     --path-events PATH_EVENTS, --path_events PATH_EVENTS
+
+
+group Level
+___________
+
+.. code-block::
+
+    usage: bidsgnostic_layout [-h]
+                              [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
+                              [--plot_by PLOT_BY [PLOT_BY ...]]
+                              [--log_level {0,1,2}]
+                            bids_dir output_dir {group}
+
+    Group level diagnostic tool for BIDS datasets.
+    Plots the number of files per participant / session per:
+        - datatype,
+        - datatype / task,
+        - datatype / task and split by any other BIDS entity.
+
+    positional arguments:
+
+    bids_dir
+    output_dir
+    {group}
+
+    options:
+
+    -h, --help
+    --participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]
+    --log_level {0,1,2}
+    --plot_by PLOT_BY [PLOT_BY ...]
+                            BIDS entity to split plots by.

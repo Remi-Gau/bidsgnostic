@@ -36,7 +36,7 @@ author = "Remi Gau"
 
 # TODO find a way to make this dynamic
 # seems that readthedocs can't install doc dependencies stored in pyproject.toml
-# threrefore we need to hardcode the version here instead of getting it from versioneer
+# therefore we need to hardcode the version here instead of getting it from versioneer
 version = "0.1.0"
 
 

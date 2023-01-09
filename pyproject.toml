@@ -60,6 +60,7 @@ Homepage = "https://github.com/Remi-Gau/bidsgnostic.git"
 
 [project.scripts]
 bidsgnostic = "bidsgnostic.run:main"
+bidsgnostic_layout = "bidsgnostic.run:main_group"
 
 [tool.versioneer]
 VCS = "git"
