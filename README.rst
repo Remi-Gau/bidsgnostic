@@ -108,11 +108,11 @@ _____________
                             Optional path to directory of SQLite databasefile for PyBIDS.
                             If directory is passed and folder exists, indexing is skipped.
                             If reset_db is called, indexing will persist
-    --reset-db, --reset_db
+    --reset-db,
                             Reindex existing PyBIDS SQLite database
-    --force-output, --force_output
+    --force-output, 
                             Force output in a new directory that already has contents
-    --help-snakemake, --help_snakemake
+    --help-snakemake, 
                             Options to Snakemake can also be passed directly at the command-line,
                             use this to print Snakemake usage
 
@@ -143,7 +143,7 @@ _____________
     --derivatives DERIVATIVES [DERIVATIVES ...]
                             Path(s) to a derivatives dataset, for folder(s)
                             that contains multiple derivatives datasets (default: False)
-    --log_level LOG_LEVEL, --log-level LOG_LEVEL
+    --log_level LOG_LEVEL,
                             The log_level level of the reporting
                             that will be printed to the console.
                             The default is "0", which means that
@@ -156,6 +156,8 @@ _____________
                         A list of events name to include in the plot.
                         If none is passed then all events will be included.
                         Must be less than 15 events.
+    --event_column EVENT_COLUMN, 
+                        Name of the column containing the events.                        
 
     BIDS FILTERS:
     Filters to customize PyBIDS get() as key=value pairs

@@ -110,6 +110,7 @@ parse_args:
   --event_column:
     help: |
       Name of the column containing the events.
+      Default to 'trial_type'.
     default: 'trial_type'
 
   # --version:
