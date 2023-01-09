@@ -111,7 +111,7 @@ parse_args:
     help: |
       Name of the column containing the events.
       Default to 'trial_type'.
-    default: 'trial_type'
+    default: trial_type
 
   # --version:
   #   action: "version"
