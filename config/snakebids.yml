@@ -1,56 +1,73 @@
 ---
-bids_dir: /home/remi/github/bidsgnostic/tests/data/ds001
+bids_dir: /home/remi/github/bidsgnostic/tests/data/bids-examples/ds001
 output_dir: /home/remi/github/bidsgnostic/results
 snakemake_args:
-- -c24
+  - -c24
 debug: false
 derivatives: false
 analysis_levels: &id001
-- participant
+  - participant
 targets_by_analysis_level:
   participant:
-  - ''
+    - ""
 pybids_inputs:
   events:
     filters:
       suffix: events
       extension: .tsv
     wildcards:
-    - subject
-    - session
-    - acquisition
-    - task
-    - run
+      - subject
+      - session
+      - acquisition
+      - task
+      - run
 parse_args:
   bids_dir:
-    help: "The directory with the input dataset formatted according to the BIDS standard.\n"
+    help:
+      "The directory with the input dataset formatted according to the BIDS
+      standard.\n"
   output_dir:
-    help: "The directory where the output files should be stored.\nIf you are running group level analysis this folder\nshould be prepopulated with the\
+    help: "The directory where the output files should be stored.\nIf you are
+      running group level analysis this folder\nshould be prepopulated with the\
       \ results of the participant level analysis.\n"
   analysis_level:
     help: Level of the analysis that will be performed.
     choices: *id001
   --participant_label:
-    help: "The label(s) of the participant(s) that should be analyzed.\nThe label corresponds to sub-<participant_label> from the BIDS spec\n(so it does\
-      \ not include \"sub-\").\nIf this parameter is not provided all subjects should be analyzed.\nMultiple participants can be specified with a space\
+    help: "The label(s) of the participant(s) that should be analyzed.\nThe
+      label corresponds to sub-<participant_label> from the BIDS spec\n(so it
+      does\
+      \ not include \"sub-\").\nIf this parameter is not provided all subjects
+      should be analyzed.\nMultiple participants can be specified with a space\
       \ separated list.\n"
     nargs: +
   --exclude_participant_label:
-    help: "The label(s) of the participant(s) that should be excluded.\nThe label corresponds to sub-<participant_label> from the BIDS spec\n(so it does\
-      \ not include \"sub-\").\nIf this parameter is not provided all subjects should be analyzed.\nMultiple participants can be specified with a space\
+    help: "The label(s) of the participant(s) that should be excluded.\nThe
+      label corresponds to sub-<participant_label> from the BIDS spec\n(so it
+      does\
+      \ not include \"sub-\").\nIf this parameter is not provided all subjects
+      should be analyzed.\nMultiple participants can be specified with a space\
       \ separated list.\n"
     nargs: +
   --derivatives:
-    help: "'Path(s) to a derivatives dataset, for folder(s)\nthat contains multiple derivatives datasets (default: %(default)s).'\n"
+    help:
+      "'Path(s) to a derivatives dataset, for folder(s)\nthat contains multiple
+      derivatives datasets (default: %(default)s).'\n"
     default: false
     nargs: +
   --log_level:
-    help: "The log_level level of the reporting that will be printed to the console.\nThe default is \"0\", which means that only warnings and errors will\
-      \ be reported.\nIf set to \"1\", all warnings, errors, and informational messages will be reported.\nIf set to \"2\", all warnings, errors, informational\
+    help: "The log_level level of the reporting that will be printed to the
+      console.\nThe default is \"0\", which means that only warnings and errors
+      will\
+      \ be reported.\nIf set to \"1\", all warnings, errors, and informational
+      messages will be reported.\nIf set to \"2\", all warnings, errors,
+      informational\
       \ and debug messages will be reported.\n"
-    default: '0'
+    default: "0"
   --include_events:
-    help: "A list of events name to include in the plot.\nIf none is passed then all events will be included.\nMust be less than 15 events.\n"
+    help:
+      "A list of events name to include in the plot.\nIf none is passed then all
+      events will be included.\nMust be less than 15 events.\n"
     nargs: +
 snakemake_dir: /home/remi/github/bidsgnostic
 snakefile: /home/remi/github/bidsgnostic/workflow/Snakefile
@@ -64,8 +81,8 @@ retrofit: false
 help_snakemake:
 analysis_level: participant
 participant_label:
-- '666'
+  - "666"
 exclude_participant_label:
-log_level: '2'
+log_level: "2"
 include_events:
-root: ''
+root: ""

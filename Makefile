@@ -2,11 +2,11 @@ clean:
 	rm -fr results
 
 manual:
-	python bidsgnostic/run.py tests/data/ds001 results participant -c24 --manual
+	python bidsgnostic/run.py tests/data/bids-examples/ds001 results participant -c24 --manual
 
 demo:
 	mkdir -p results
-	bidsgnostic tests/data/ds001 results participant -c24
+	bidsgnostic tests/data/bids-examples/ds001 results participant -c24
 
 get_ds114_test1:
 	wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/utils/get_data_from_osf.sh

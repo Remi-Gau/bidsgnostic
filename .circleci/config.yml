@@ -10,78 +10,78 @@ jobs:
       # https://circleci.com/developer/machine/image/ubuntu-2204
       image: ubuntu-2204:2022.10.2
     steps:
-    - checkout
-    - run:
-        name: Build Docker image
-        command: |
-          wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/circleci/build_docker.sh
-          bash build_docker.sh
-    - persist_to_workspace:
-        root: /home/circleci
-        paths:
-        - docker/image.tar
+      - checkout
+      - run:
+          name: Build Docker image
+          command: |
+            wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/circleci/build_docker.sh
+            bash build_docker.sh
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - docker/image.tar
 
   get_external_data:
     machine:
       image: ubuntu-2204:2022.10.2
     steps:
-    - checkout
-    - restore_cache:
-        keys:
-        - my_cache
-    - run:
-        name: Get test data ds114_test1
-        command: |
-          wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/utils/get_data_from_osf.sh
-          bash get_data_from_osf.sh ds114_test1
-          bash get_data_from_osf.sh ds114_test2
-    - save_cache:
-        key: my_cache
-        paths:
-        - ~/data
-    - persist_to_workspace:
-        root: /home/circleci
-        paths:
-        - data/ds114_test1
-        - data/ds114_test2
+      - checkout
+      - restore_cache:
+          keys:
+            - my_cache
+      - run:
+          name: Get test data ds114_test1
+          command: |
+            wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/utils/get_data_from_osf.sh
+            bash get_data_from_osf.sh ds114_test1
+            bash get_data_from_osf.sh ds114_test2
+      - save_cache:
+          key: my_cache
+          paths:
+            - ~/data
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - data/ds114_test1
+            - data/ds114_test2
 
   test_internal_data:
     executor: python/default
     steps:
-    - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
-    - checkout
-    - run: pip install -e .
-    - run:
-        name: test errors on internal data at participant level
-        command: |
-          mkdir tmp
-          cd tmp
-          # cannot be tested yet
-          # bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant_label 666
-          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events foo
-    - run:
-        name: test happy path on internal data at participant level
-        command: |
-          cd tmp
-          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --participant_label 01 02
-          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2 --include_events pumps_demean
-          bidsgnostic ../tests/data/ds001 results participant -c24 --verbose --log_level 2
-    - run:
-        name: test errors on internal data at group level
-        command: |
-          cd tmp
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant_label 01 02
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant_label 666
-    - run:
-        name: test happy path on internal data at group level
-        command: |
-          cd tmp
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --participant_label 01 02
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2 --plot_by suffix
-          bidsgnostic_layout ../tests/data/ds001 results group --log_level 2
-    - run:
-        name: list results
-        command: tree tmp/results
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
+      - checkout
+      - run: pip install -e .
+      - run:
+          name: test errors on internal data at participant level
+          command: |
+            mkdir tmp
+            cd tmp
+            # cannot be tested yet
+            # bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2 --participant_label 666
+            bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2 --include_events foo
+      - run:
+          name: test happy path on internal data at participant level
+          command: |
+            cd tmp
+            bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2 --participant_label 01 02
+            bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2 --include_events pumps_demean
+            bidsgnostic ../tests/data/bids-examples/ds001 results participant -c24 --verbose --log_level 2
+      - run:
+          name: test errors on internal data at group level
+          command: |
+            cd tmp
+            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2 --participant_label 01 02
+            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2 --participant_label 666
+      - run:
+          name: test happy path on internal data at group level
+          command: |
+            cd tmp
+            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2 --participant_label 01 02
+            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2 --plot_by suffix
+            bidsgnostic_layout ../tests/data/bids-examples/ds001 results group --log_level 2
+      - run:
+          name: list results
+          command: tree tmp/results
 
   test_external_data:
     executor: python/default
@@ -89,36 +89,37 @@ jobs:
       dataset:
         type: string
     steps:
-    - attach_workspace:
-        at: /tmp/workspace
-    - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
-    - checkout
-    - run: pip install -e .
-    - run:
-        name: test external ds114_<< parameters.dataset >> at participant level
-        command: |
-          bidsgnostic \
-            /tmp/workspace/data/ds114_test<< parameters.dataset >> \
-            outputs<< parameters.dataset >> \
-            participant \
-            -c2 --verbose --log_level 2 \
-            --participant_label 01 02
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
+      - checkout
+      - run: pip install -e .
+      - run:
+          name:
+            test external ds114_<< parameters.dataset >> at participant level
+          command: |
+            bidsgnostic \
+              /tmp/workspace/data/ds114_test<< parameters.dataset >> \
+              outputs<< parameters.dataset >> \
+              participant \
+              -c2 --verbose --log_level 2 \
+              --participant_label 01 02
 
-    - run:
-        name: test external data ds114_<< parameters.dataset >> at group level
-        command: |
-          bidsgnostic_layout \
-            /tmp/workspace/data/ds114_test<< parameters.dataset >> \
-            outputs<< parameters.dataset >> \
-            group \
-            --log_level 2
+      - run:
+          name: test external data ds114_<< parameters.dataset >> at group level
+          command: |
+            bidsgnostic_layout \
+              /tmp/workspace/data/ds114_test<< parameters.dataset >> \
+              outputs<< parameters.dataset >> \
+              group \
+              --log_level 2
 
-    - run:
-        name: list results
-        command: tree outputs<< parameters.dataset >>
+      - run:
+          name: list results
+          command: tree outputs<< parameters.dataset >>
 
-    - store_artifacts:
-        path: ~/outputs<< parameters.dataset >>
+      - store_artifacts:
+          path: ~/outputs<< parameters.dataset >>
 
   test_docker:
     machine:
@@ -129,73 +130,73 @@ jobs:
         type: string
 
     steps:
-    - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
 
-    - attach_workspace:
-        at: /tmp/workspace
-    - run: docker load -i /tmp/workspace/docker/image.tar
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: docker load -i /tmp/workspace/docker/image.tar
 
-    - run: mkdir -p ${HOME}/outputs_docker_<< parameters.dataset >>
+      - run: mkdir -p ${HOME}/outputs_docker_<< parameters.dataset >>
 
-    - run:
-        name: version
-        command: |
-          docker run -ti --rm \
-            -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
-            -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-              remi-gau/bidsgnostic \
-                /bids_dataset \
-                /outputs participant --version
+      - run:
+          name: version
+          command: |
+            docker run -ti --rm \
+              -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
+              -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
+                remi-gau/bidsgnostic \
+                  /bids_dataset \
+                  /outputs participant --version
 
-    - run:
-        name: participant level analysis ds114_test<< parameters.dataset >>
-        command: |
-          docker run -ti --rm \
-            -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
-            -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-              remi-gau/bidsgnostic \
-                /bids_dataset \
-                /outputs participant \
-                -c1 --verbose --log_level 2 \
-            --participant_label 01 02
+      - run:
+          name: participant level analysis ds114_test<< parameters.dataset >>
+          command: |
+            docker run -ti --rm \
+              -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
+              -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
+                remi-gau/bidsgnostic \
+                  /bids_dataset \
+                  /outputs participant \
+                  -c1 --verbose --log_level 2 \
+              --participant_label 01 02
 
-      # - run:
-      #     name: group level analysis ds114_test<< parameters.dataset >>
-      #     command: |
-      #       docker run -ti --rm \
-      #         -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
-      #         -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-      #           remi-gau/bidsgnostic \
-      #             /bids_dataset \
-      #             /outputs group \
-      #             -c1 --verbose --log_level 2
+        # - run:
+        #     name: group level analysis ds114_test<< parameters.dataset >>
+        #     command: |
+        #       docker run -ti --rm \
+        #         -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
+        #         -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
+        #           remi-gau/bidsgnostic \
+        #             /bids_dataset \
+        #             /outputs group \
+        #             -c1 --verbose --log_level 2
 
-    - run:
-        name: list results
-        command: tree ${HOME}/outputs_docker_<< parameters.dataset >>
+      - run:
+          name: list results
+          command: tree ${HOME}/outputs_docker_<< parameters.dataset >>
 
-    - store_artifacts:
-        path: ~/outputs_docker_<< parameters.dataset >>
+      - store_artifacts:
+          path: ~/outputs_docker_<< parameters.dataset >>
 
 workflows:
   build_test_deploy:
     jobs:
-    - get_external_data
-    - test_internal_data
-    - build:
-        requires:
-        - test_internal_data
-        - test_external_data
-    - test_external_data:
-        requires:
-        - get_external_data
-        matrix:
-          parameters:
-            dataset: ['1', '2']
-    - test_docker:
-        requires:
-        - build
-        - get_external_data
-        matrix:
-          parameters:
-            dataset: ['1', '2']
+      - get_external_data
+      - test_internal_data
+      - build:
+          requires:
+            - test_internal_data
+            - test_external_data
+      - test_external_data:
+          requires:
+            - get_external_data
+          matrix:
+            parameters:
+              dataset: ["1", "2"]
+      - test_docker:
+          requires:
+            - build
+            - get_external_data
+          matrix:
+            parameters:
+              dataset: ["1", "2"]
