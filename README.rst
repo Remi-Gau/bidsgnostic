@@ -39,11 +39,15 @@ all the gory details of the API
 .. code-block::
 
     usage: bidsgnostic [-h]
-                    [--pybidsdb-dir PYBIDSDB_DIR] [--reset-db] [--force-output] [--help-snakemake]
+                    [--pybidsdb-dir PYBIDSDB_DIR]
+                    [--reset-db]
+                    [--force-output]
+                    [--help-snakemake]
                     [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
                     [--exclude_participant_label EXCLUDE_PARTICIPANT_LABEL [EXCLUDE_PARTICIPANT_LABEL ...]]
-                    [--derivatives DERIVATIVES [DERIVATIVES ...]] [--log_level LOG_LEVEL]
-                    [--filter-events FILTER_EVENTS [FILTER_EVENTS ...]] *
+                    [--derivatives DERIVATIVES [DERIVATIVES ...]]
+                    [--log_level LOG_LEVEL]
+                    [--filter-events FILTER_EVENTS [FILTER_EVENTS ...]]
                     [--wildcards-events WILDCARDS_EVENTS [WILDCARDS_EVENTS ...]]
                     [--path-events PATH_EVENTS]
                     bids_dir output_dir {participant}
