@@ -1,16 +1,16 @@
 from __future__ import annotations
 
 import math
-import re
 import warnings
 from pathlib import Path
+import re
 from typing import Any
 
+from bids import BIDSLayout
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from bids import BIDSLayout
 from plotly.subplots import make_subplots
 
 
@@ -87,7 +87,7 @@ Creating a dummy trial_type column.
 
         if self.nb_trial_types > 13:
             warnings.warn(
-                f"""More than 18 trial types found in {events_file}.
+                f"""More than 13 trial types found in {events_file}.
 The plot will be unreadable.
 
 Specify a subset of trial types using the 'include' argument.
@@ -176,6 +176,8 @@ Specify a subset of trial types using the 'include' argument.
             return
         if include is not None:
             self._trial_types = list(set(self._trial_types) & set(include))
+
+        self._trial_types = sorted(self._trial_types)
 
     def _get_data_from_file(self, events_file: str | Path) -> None:
         events_file = Path(events_file)
@@ -485,13 +487,6 @@ Specify a subset of trial types using the 'include' argument.
         )
 
 
-def get_duration(df: pd.DataFrame) -> pd.Series:
-    tmp = df.copy()
-    mask = df["duration"].isnull()
-    tmp.loc[mask, "duration"] = 0
-    return tmp["duration"]
-
-
 class LayoutPlotter:
     """Class to handle plotting the content of a BIDSLayout.
 
@@ -522,7 +517,6 @@ class LayoutPlotter:
         self.df_layout = (
             layout.to_df(**filters) if filters is not None else layout.to_df()
         )
-
         if self.df_layout.size == 0:
             warnings.warn(
                 f"No data found in the layout for the given filters {filters}."
@@ -740,8 +734,7 @@ class LayoutPlotter:
         )
 
     def _fig_name(self, suffix: str) -> str:
-        dataset_name = self.title.lower().replace(" ", "_")
-        dataset_name = re.sub("[^0-9a-zA-Z]+", "", dataset_name)
+        dataset_name = camel_case(self.title)
         return f"dataset-{dataset_name}_splitby-{suffix}_summary.html"
 
     def _write_html(
@@ -751,3 +744,15 @@ class LayoutPlotter:
             output_dir = Path(output_dir)
             output_dir.mkdir(parents=True, exist_ok=True)
             fig.write_html(output_dir.joinpath(self._fig_name(suffix=suffix)))
+
+
+def get_duration(df: pd.DataFrame) -> pd.Series:
+    tmp = df.copy()
+    mask = df["duration"].isnull()
+    tmp.loc[mask, "duration"] = 0
+    return tmp["duration"]
+
+
+def camel_case(s):
+    s = re.sub(r"(_|-)+", " ", s).title().replace(" ", "")
+    return "".join([s[0].lower(), s[1:]])
