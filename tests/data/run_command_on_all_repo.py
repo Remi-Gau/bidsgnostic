@@ -19,7 +19,7 @@ COMMANDS = [
 DRY_RUN = False
 VERBOSE = True
 
-OUTPUT_FILE = Path(__file__).parent.joinpath("outputs", "log.md")
+OUTPUT_FILE = Path(__file__).parent.joinpath("outputs", "log.md").resolve()
 OUTPUT_FILE.unlink(missing_ok=True)
 
 START_DIR = Path(__file__).parent.joinpath("bids-examples")
