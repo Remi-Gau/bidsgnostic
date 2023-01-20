@@ -7,7 +7,7 @@ outputs*
 results/
 tmp
 tests/data/derivatives/
-tests/data/bids_examples
+tests/data/bids-examples
 
 # vs code stuff
 .vscode/settings.json

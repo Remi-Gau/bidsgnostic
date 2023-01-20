@@ -107,6 +107,18 @@ jobs:
         name: list results << parameters.dataset >>
         command: tree tmp/results_<< parameters.dataset >>
 
+  test_on_all_examples:
+    executor: python/default
+    steps:
+    - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
+    - checkout
+    - run: git submodule update --init --recursive && git submodule update --recursive
+    - run: pip install -e .
+    - run: make install_bids_examples
+    - run:
+        name: test on all examples
+        command: python3 tests/data/run_command_on_all_repo.py
+
   test_data_event_column:
     executor: python/default
     steps:
@@ -232,6 +244,7 @@ workflows:
         matrix:
           parameters:
             dataset: [ds001]
+    - test_on_all_examples
     - build:
         requires:
         - test_internal_data
