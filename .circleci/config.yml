@@ -216,7 +216,7 @@ jobs:
             --participant_label 01 02
 
     # Docker entrypoint is only to bidsgnostic not bidsgnostic_layout (for now)
-    # 
+    #
     # - run:
     #     name: group level analysis ds114_test<< parameters.dataset >>
     #     command: |

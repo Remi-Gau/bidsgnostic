@@ -1,16 +1,16 @@
 from __future__ import annotations
 
 import math
+import re
 import warnings
 from pathlib import Path
-import re
 from typing import Any
 
-from bids import BIDSLayout
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from bids import BIDSLayout
 from plotly.subplots import make_subplots
 
 

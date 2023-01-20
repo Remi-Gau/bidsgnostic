@@ -29,7 +29,7 @@ FOLDERS_TO_SKIP = [
     ".github",
     "maintenance-tools",
     ".vscode",
-    "ds000001-fmriprep"
+    "ds000001-fmriprep",
 ]
 
 DATASET_TO_SKIP = ["7t_trt", "ds000246", "ds000247"]
