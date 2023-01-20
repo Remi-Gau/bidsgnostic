@@ -8,6 +8,9 @@ demo:
 	mkdir -p results
 	bidsgnostic tests/data/bids-examples/ds001 results participant --cores all
 
+install_bids_examples:
+	git clone https://github.com/bids-standard/bids-examples.git tests/data/bids-examples
+
 get_ds114_test1:
 	wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/utils/get_data_from_osf.sh
 	bash get_data_from_osf.sh ds114_test1

@@ -55,6 +55,7 @@ jobs:
     - checkout
     - run: git submodule update --init --recursive && git submodule update --recursive
     - run: pip install -e .
+    - run: make install_bids_examples
     - run:
         name: test errors on internal data at participant level
         command: |
@@ -202,16 +203,18 @@ jobs:
                 -c1 --verbose --log_level 2 \
             --participant_label 01 02
 
-        # - run:
-        #     name: group level analysis ds114_test<< parameters.dataset >>
-        #     command: |
-        #       docker run -ti --rm \
-        #         -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
-        #         -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
-        #           remi-gau/bidsgnostic \
-        #             /bids_dataset \
-        #             /outputs group \
-        #             -c1 --verbose --log_level 2
+    # Docker entrypoint is only to bidsgnostic not bidsgnostic_layout (for now)
+    # 
+    # - run:
+    #     name: group level analysis ds114_test<< parameters.dataset >>
+    #     command: |
+    #       docker run -ti --rm \
+    #         -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
+    #         -v ${HOME}/outputs_docker_<< parameters.dataset >>:/outputs \
+    #           remi-gau/bidsgnostic \
+    #             /bids_dataset \
+    #             /outputs group \
+    #             -c1 --verbose --log_level 2
 
     - run:
         name: list results
