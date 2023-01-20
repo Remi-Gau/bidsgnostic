@@ -126,6 +126,7 @@ jobs:
     - checkout
     - run: git submodule update --init --recursive && git submodule update --recursive
     - run: pip install -e .
+    - run: make install_bids_examples
     - run:
         name: test happy path on internal data at participant level
         command: |
