@@ -19,7 +19,7 @@ COMMANDS = [
 DRY_RUN = False
 VERBOSE = True
 
-OUTPUT_FILE = Path(__file__).parent / "outputs" / "log.md"
+OUTPUT_FILE = Path(__file__).parent.joinpath("outputs", "log.md")
 OUTPUT_FILE.unlink(missing_ok=True)
 
 START_DIR = Path(__file__).parent.joinpath("bids-examples")
@@ -65,8 +65,12 @@ def run_cmd(cmd, dry_run=True, verbose=True, split=True):
 
 def print_to_output(output_file, text):
     if output_file is not None:
-        with open(output_file, "a", encoding="utf8") as f:
-            f.write(f"{text}\n")
+        if not output_file.exists():
+            with open(output_file, "w", encoding="utf8") as f:
+                f.write(f"{text}\n")
+        else:
+            with open(output_file, "a", encoding="utf8") as f:
+                f.write(f"{text}\n")
         return
     else:
         f.write(f"{text}\n")
@@ -78,7 +82,7 @@ def main():
         with open(OUTPUT_FILE, "w") as log:
             print(f"# Output from '{COMMANDS}'\n", file=log)
 
-    print(f"Applying to folders in: {START_DIR}")
+    print(f"Applying to folders in:\n{START_DIR}")
 
     datasets_list = sorted([x for x in START_DIR.iterdir() if x.is_dir()])
 
