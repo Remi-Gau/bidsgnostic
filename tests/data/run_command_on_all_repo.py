@@ -78,7 +78,7 @@ def main():
         with open(OUTPUT_FILE, "w") as log:
             print(f"# Output from '{COMMANDS}'\n", file=log)
 
-    print(f"Appying to folders in: {START_DIR}")
+    print(f"Applying to folders in: {START_DIR}")
 
     datasets_list = sorted([x for x in START_DIR.iterdir() if x.is_dir()])
 
