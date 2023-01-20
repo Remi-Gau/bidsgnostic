@@ -117,7 +117,9 @@ jobs:
     - run: make install_bids_examples
     - run:
         name: test on all examples
-        command: python3 tests/data/run_command_on_all_repo.py
+        command: |
+          mkdir tests/data/outputs/
+          python3 tests/data/run_command_on_all_repo.py
 
   test_data_event_column:
     executor: python/default
