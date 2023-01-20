@@ -110,10 +110,15 @@ jobs:
   test_on_all_examples:
     executor: python/default
     steps:
-    - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
+    - run: 
+        command: | 
+          sudo apt-get update -qq && \
+          sudo apt-get install -y -qq \
+            tree \
+            python3
     - checkout
     - run: git submodule update --init --recursive && git submodule update --recursive
-    - run: pip install -e .
+    - run: pip3 install -e .
     - run: make install_bids_examples
     - run:
         name: test on all examples
