@@ -12,6 +12,7 @@ from subprocess import run
 from rich import print
 
 COMMANDS = [
+    "mkdir -p ./derivatives/",
     "bidsgnostic . ./derivatives/ participant --cores all",
     "bidsgnostic_layout  . ./derivatives/ group --plot_by suffix",
 ]
