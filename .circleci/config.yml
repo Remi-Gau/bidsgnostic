@@ -124,7 +124,7 @@ jobs:
     - run: pip3 install -e .
     - run: make install_bids_examples
     - run:
-        name: test on all examples
+        name: test << parameters.level >> on all examples
         command: |
           cd tests/data/
           bash bidsgnostic_<< parameters.level >>_all_examples.sh
