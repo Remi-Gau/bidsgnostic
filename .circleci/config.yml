@@ -53,7 +53,6 @@ jobs:
     steps:
     - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
     - checkout
-    - run: git submodule update --init --recursive && git submodule update --recursive
     - run: pip install -e .
     - run: make install_bids_examples
     - run:
@@ -64,21 +63,29 @@ jobs:
           # cannot be tested yet
           # bidsgnostic ../tests/data/bids-examples/ds001 results_<< parameters.dataset >> participant && \
           #   --cores all --verbose --log_level 2 --participant_label 666
-          bidsgnostic ../tests/data/bids-examples/<< parameters.dataset >> \
-            results_<< parameters.dataset >> participant \
+          bidsgnostic \
+            ../tests/data/bids-examples/<< parameters.dataset >> \
+            results_<< parameters.dataset >> \
+            participant \
             --cores all --verbose --log_level 2 --include_events foo
     - run:
         name: test happy path on internal data at participant level
         command: |
           cd tmp
-          bidsgnostic ../tests/data/bids-examples/<< parameters.dataset >> \
-            results_<< parameters.dataset >> participant \
+          bidsgnostic \
+            ../tests/data/bids-examples/<< parameters.dataset >> \
+            results_<< parameters.dataset >> \
+            participant \
             --cores all --verbose --log_level 2 --participant_label 01 02
-          bidsgnostic ../tests/data/bids-examples/<< parameters.dataset >> \
-            results_<< parameters.dataset >> participant \
+          bidsgnostic \
+            ../tests/data/bids-examples/<< parameters.dataset >> \
+            results_<< parameters.dataset >> \
+            participant \
             --cores all --verbose --log_level 2 --include_events pumps_demean
-          bidsgnostic ../tests/data/bids-examples/<< parameters.dataset >> \
-            results_<< parameters.dataset >> participant \
+          bidsgnostic \
+            ../tests/data/bids-examples/<< parameters.dataset >> \
+            results_<< parameters.dataset >> \
+            participant \
             --cores all --verbose --log_level 2
     - run:
         name: test errors on internal data at group level
@@ -110,28 +117,20 @@ jobs:
   test_on_all_examples:
     executor: python/default
     steps:
-    - run: 
-        command: | 
-          sudo apt-get update -qq && \
-          sudo apt-get install -y -qq \
-            tree \
-            python3
     - checkout
-    - run: git submodule update --init --recursive && git submodule update --recursive
     - run: pip3 install -e .
     - run: make install_bids_examples
     - run:
         name: test on all examples
         command: |
-          mkdir tests/data/outputs/
-          python3 tests/data/run_command_on_all_repo.py
+          cd tests/data/
+          bash run_command_on_all_repo.sh
 
   test_data_event_column:
     executor: python/default
     steps:
     - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
     - checkout
-    - run: git submodule update --init --recursive && git submodule update --recursive
     - run: pip install -e .
     - run: make install_bids_examples
     - run:
