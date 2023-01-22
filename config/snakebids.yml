@@ -40,7 +40,6 @@ pybids_inputs:
     - task
     - run
 
-
 #this configures the options to save the BIDSLayout
 # by default, database is not saved (uncomment to save)
 # NOTE: pybids_db_dir must be an absolute path

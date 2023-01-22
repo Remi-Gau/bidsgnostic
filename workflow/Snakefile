@@ -24,9 +24,13 @@ inputs = snakebids.generate_inputs(
 )
 
 inputs.wildcards == {
-    "events": {"subject": "{subject}", "task": "{task}", "run": "{run}", "extension": "{extension}"},
+    "events": {
+        "subject": "{subject}",
+        "task": "{task}",
+        "run": "{run}",
+        "extension": "{extension}",
+    },
 }
-
 
 # this adds constraints to the bids naming
 wildcard_constraints:
@@ -39,6 +43,7 @@ if config["log_level"] == "2":
     print(f"Configuration:\n{config}")
 
 output_dir = Path(config["output_dir"]).joinpath("bidsgnostic")
+
 
 rule plot_events:
     input:
@@ -94,6 +99,7 @@ rule readme:
     script:
         "scripts/readme.py"
 
+
 # not sure why top_files doe snot work
 rule top_files:
     input:
@@ -109,6 +115,7 @@ rule all:
             bids(
                 root="bidsgnostic", suffix="events.html", **inputs.wildcards["events"]
             ),
+            allow_missing=True,
             **inputs.entities["events"]
         ),
     default_target: True
