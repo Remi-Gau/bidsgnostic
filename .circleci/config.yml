@@ -183,7 +183,7 @@ jobs:
                 /bids_dataset \
                 /outputs participant \
                 -c1 --verbose --log_level 2 \
-            --participant_label 01 02
+                --participant_label 01 02
 
     # Docker entrypoint is only to bidsgnostic not bidsgnostic_layout (for now)
     #
