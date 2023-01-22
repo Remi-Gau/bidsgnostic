@@ -27,7 +27,7 @@ done
 
 datasets=$(find bids-examples -mindepth 1 -maxdepth 1 -type d -name "ieeg*")
 
-DATASET_TO_SKIP=(".github .git")
+DATASET_TO_SKIP=(".github .git ieeg_visual")
 
 for dataset in $datasets; do
 
