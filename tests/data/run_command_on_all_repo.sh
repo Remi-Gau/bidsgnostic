@@ -24,7 +24,7 @@ for dataset in $datasets; do
 
     mkdir -p ./derivatives/${ds_name}
 
-    # bidsgnostic_layout  "$PWD/$dataset" "$PWD/derivatives/${ds_name}" group --plot_by suffix
+    bidsgnostic_layout  "$PWD/$dataset" "$PWD/derivatives/${ds_name}" group --plot_by suffix
 
 done
 
@@ -33,7 +33,7 @@ done
 
 datasets=$(find bids-examples -mindepth 1 -maxdepth 1 -type d -name "ds*")
 
-DATASET_TO_SKIP=(".github .git ds000001-fmriprep ds000246 ds000247")
+DATASET_TO_SKIP=(".github .git ds000001-fmriprep ds000246 ds000247 ds000117")
 
 for dataset in $datasets; do
 
