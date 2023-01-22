@@ -36,7 +36,8 @@ class EventPlotter:
         event_column: str | None = None,
         include: list[str] | None = None,
     ):
-        self.COLOR_LIST = px.colors.qualitative.Plotly
+        # find a cleaner way to have more colors
+        self.COLOR_LIST = px.colors.qualitative.Plotly + px.colors.qualitative.Plotly
         self.FONT_SIZE = 14
         self.STANDOFF = 16
         self.LINE_WIDTH = 3
