@@ -500,7 +500,7 @@ class LayoutPlotter:
 
         self.datatype = sorted(layout.get(return_type="id", target="datatype"))
         self.task = sorted(layout.get_task())
-        self.title = layout.description.get("Name", "BIDS dataset")
+        self.title = layout.description.get("Name", "BIDS dataset").replace("/", " ")
         self.df_layout = (
             layout.to_df(**filters) if filters is not None else layout.to_df()
         )
