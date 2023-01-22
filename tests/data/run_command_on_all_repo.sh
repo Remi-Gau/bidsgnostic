@@ -11,10 +11,10 @@ datasets=$(find bids-examples -mindepth 1 -maxdepth 1 -type d)
 
 for dataset in $datasets; do
 
-   if [ -e "$dataset/.git" ]; then
+   if [ -e "bids-examples/.git" ]; then
        continue
    fi
-   if [ -e "$dataset/.github" ]; then
+   if [ -e "bids-examples/.github" ]; then
        continue
    fi   
 
