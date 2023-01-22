@@ -21,3 +21,5 @@ if this.nb_trial_types > 0:
     Path(snakemake.output.file).parent.mkdir(parents=True, exist_ok=True)
     if snakemake.params.extension == "html":
         this.fig.write_html(snakemake.output.file)
+    elif snakemake.params.extension == "png":
+        this.fig.write_image(Path(snakemake.output.file).with_suffix(f".{snakemake.params.extension}"))      

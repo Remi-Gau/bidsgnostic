@@ -5,8 +5,9 @@ manual:
 	python bidsgnostic/run.py tests/data/bids-examples/ds001 results participant --cores all --manual
 
 demo:
-	mkdir -p results
-	bidsgnostic tests/data/bids-examples/ds001 results participant --cores all
+	cd tests && \
+	mkdir -p results && \
+	bidsgnostic data/bids-examples/ds001 results participant --cores all --extension png
 
 install_bids_examples:
 	git clone https://github.com/bids-standard/bids-examples.git tests/data/bids-examples

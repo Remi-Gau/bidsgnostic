@@ -24,7 +24,7 @@ inputs = snakebids.generate_inputs(
 )
 
 inputs.wildcards == {
-    "events": {"subject": "{subject}", "task": "{task}", "run": "{run}"},
+    "events": {"subject": "{subject}", "task": "{task}", "run": "{run}", "extension": "{extension}"},
 }
 
 
@@ -50,7 +50,7 @@ rule plot_events:
         extension=config["extension"],
     output:
         file=bids(
-            root="bidsgnostic", suffix="events", **inputs.wildcards["events"]
+            root="bidsgnostic", suffix="events.html", **inputs.wildcards["events"]
         ),
     script:
         "scripts/plot_events.py"
