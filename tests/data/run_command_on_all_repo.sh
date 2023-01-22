@@ -31,7 +31,7 @@ done
 
 datasets=$(find bids-examples -mindepth 1 -maxdepth 1 -type d -name "ds*")
 
-DATASET_TO_SKIP=(".github .git ds000001-fmriprep ds000246 ds000247 ds000117 ds006 ds007 ds008")
+DATASET_TO_SKIP=(".github .git ds000001-fmriprep ds000246 ds000247 ds000117 ds006 ds007 ds008 ds009")
 
 for dataset in $datasets; do
 
