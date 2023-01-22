@@ -146,43 +146,6 @@ jobs:
         name: list results fnirs_automaticity
         command: tree tmp/results_fnirs_automaticity
 
-  test_external_data:
-    executor: python/default
-    parameters:
-      dataset:
-        type: string
-    steps:
-    - attach_workspace:
-        at: /tmp/workspace
-    - run: sudo apt-get update -qq && sudo apt-get install -y -qq tree
-    - checkout
-    - run: pip install -e .
-    - run:
-        name: test external ds114_<< parameters.dataset >> at participant level
-        command: |
-          bidsgnostic \
-            /tmp/workspace/data/ds114_test<< parameters.dataset >> \
-            outputs<< parameters.dataset >> \
-            participant \
-            -c2 --verbose --log_level 2 \
-            --participant_label 01 02
-
-    - run:
-        name: test external data ds114_<< parameters.dataset >> at group level
-        command: |
-          bidsgnostic_layout \
-            /tmp/workspace/data/ds114_test<< parameters.dataset >> \
-            outputs<< parameters.dataset >> \
-            group \
-            --log_level 2
-
-    - run:
-        name: list results
-        command: tree outputs<< parameters.dataset >>
-
-    - store_artifacts:
-        path: ~/outputs<< parameters.dataset >>
-
   test_docker:
     machine:
       image: ubuntu-2204:2022.10.2
@@ -239,34 +202,24 @@ jobs:
         name: list results
         command: tree ${HOME}/outputs_docker_<< parameters.dataset >>
 
-    - store_artifacts:
-        path: ~/outputs_docker_<< parameters.dataset >>
-
 workflows:
   build_test_deploy:
     jobs:
     - get_external_data
     - test_data_event_column
+    - test_on_all_examples
+    - build
     - test_internal_data:
         matrix:
           parameters:
             dataset: [ds001]
-    - test_on_all_examples
-    - build:
-        requires:
-        - test_internal_data
-        - test_external_data
-    - test_external_data:
-        requires:
-        - get_external_data
-        matrix:
-          parameters:
-            dataset: ['1', '2']
     - test_docker:
         requires:
         - build
+        - test_internal_data
         - get_external_data
         - test_data_event_column
+        - test_on_all_examples
         matrix:
           parameters:
             dataset: ['1', '2']
