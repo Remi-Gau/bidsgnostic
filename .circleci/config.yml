@@ -116,6 +116,9 @@ jobs:
 
   test_on_all_examples:
     executor: python/default
+    parameters:
+      level:
+        type: string    
     steps:
     - checkout
     - run: pip3 install -e .
@@ -124,7 +127,7 @@ jobs:
         name: test on all examples
         command: |
           cd tests/data/
-          bash run_command_on_all_repo.sh
+          bash bidsgnostic_<< parameters.level >>_all_examples.sh
 
   test_data_event_column:
     executor: python/default
@@ -207,7 +210,10 @@ workflows:
     jobs:
     - get_external_data
     - test_data_event_column
-    - test_on_all_examples
+    - test_on_all_examples:
+        matrix:
+          parameters:
+            level: ['event', 'layout']    
     - build
     - test_internal_data:
         matrix:
