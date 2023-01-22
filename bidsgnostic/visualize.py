@@ -273,6 +273,7 @@ Specify a subset of trial types using the 'include' argument.
                     prefix="duration",
                 )
                 self.bottom_row("duration", status)
+    
 
     def _plot_timeline(self, x: Any, y: Any, name: str, mode: str, color: str) -> None:
 

@@ -19,4 +19,5 @@ if this.nb_trial_types > 0:
     if snakemake.params.log_level == "2":
         this.fig.show()
     Path(snakemake.output.file).parent.mkdir(parents=True, exist_ok=True)
-    this.fig.write_html(snakemake.output.file)
+    if snakemake.params.extension == "html":
+        this.fig.write_html(snakemake.output.file)

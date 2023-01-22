@@ -113,6 +113,10 @@ parse_args:
       Default to 'trial_type'.
     default: trial_type
 
+  --extension:
+    help: extension of output figures
+    default: html
+
   # --version:
   #   action: "version"
   #   help: "show program's version number and exit"
