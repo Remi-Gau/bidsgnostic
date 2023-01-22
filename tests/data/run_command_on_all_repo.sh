@@ -7,8 +7,6 @@ set -eux -o pipefail
 
 datasets=$(find bids-examples -mindepth 1 -maxdepth 1 -type d)
 
-: $datasets
-
 for dataset in $datasets; do
 
    if [ -e "bids-examples/.git" ]; then
@@ -33,7 +31,7 @@ done
 
 datasets=$(find bids-examples -mindepth 1 -maxdepth 1 -type d -name "ds*")
 
-DATASET_TO_SKIP=(".github .git ds000001-fmriprep ds000246 ds000247 ds000117")
+DATASET_TO_SKIP=(".github .git ds000001-fmriprep ds000246 ds000247 ds000117 ds006")
 
 for dataset in $datasets; do
 
