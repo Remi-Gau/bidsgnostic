@@ -22,4 +22,6 @@ if this.nb_trial_types > 0:
     if snakemake.params.extension == "html":
         this.fig.write_html(snakemake.output.file)
     elif snakemake.params.extension == "png":
-        this.fig.write_image(Path(snakemake.output.file).with_suffix(f".{snakemake.params.extension}"))      
+        this.fig.write_image(
+            Path(snakemake.output.file).with_suffix(f".{snakemake.params.extension}")
+        )

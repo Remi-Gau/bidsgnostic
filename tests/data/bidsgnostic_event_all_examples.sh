@@ -14,8 +14,8 @@ for dataset in $datasets; do
     ds_name=$(basename "$dataset")
 
     if [[ " ${DATASET_TO_SKIP[*]} " =~ " ${ds_name} " ]]; then
-        continue    
-    fi   
+        continue
+    fi
 
     : "Running on $dataset"
 
@@ -34,8 +34,8 @@ for dataset in $datasets; do
     ds_name=$(basename "$dataset")
 
     if [[ " ${DATASET_TO_SKIP[*]} " =~ " ${ds_name} " ]]; then
-        continue    
-    fi   
+        continue
+    fi
 
     : "Running on $dataset"
 
@@ -55,8 +55,8 @@ for dataset in $datasets; do
     ds_name=$(basename "$dataset")
 
     if [[ " ${DATASET_TO_SKIP[*]} " =~ " ${ds_name} " ]]; then
-        continue    
-    fi   
+        continue
+    fi
 
     : "Running on $dataset"
 
@@ -65,6 +65,3 @@ for dataset in $datasets; do
     bidsgnostic  "$PWD/$dataset" "$PWD/derivatives/${ds_name}" participant --cores all --force-output
 
 done
-
-
-
