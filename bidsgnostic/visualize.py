@@ -1,16 +1,16 @@
 from __future__ import annotations
 
 import math
+import re
 import warnings
 from pathlib import Path
-import re
 from typing import Any
 
-from bids import BIDSLayout
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from bids import BIDSLayout
 from plotly.subplots import make_subplots
 
 
@@ -232,7 +232,6 @@ Specify a subset of trial types using the 'include' argument.
         """
 
         for self._trial_type_index in range(self.nb_trial_types):
-
             onset = self.data_this_trial_type["onset"]
             duration = get_duration(self.data_this_trial_type)
 
@@ -274,10 +273,8 @@ Specify a subset of trial types using the 'include' argument.
                     prefix="duration",
                 )
                 self.bottom_row("duration", status)
-    
 
     def _plot_timeline(self, x: Any, y: Any, name: str, mode: str, color: str) -> None:
-
         x = np.append(0, x)
         y = np.append(0, y)
 
@@ -313,7 +310,6 @@ Specify a subset of trial types using the 'include' argument.
         )
 
     def _plot_responses(self) -> None:
-
         if "response_time" not in self.data.columns:
             return
 
@@ -347,7 +343,6 @@ Specify a subset of trial types using the 'include' argument.
         prefix: str | None = None,
         color: str = "black",
     ) -> None:
-
         if prefix is None:
             prefix = "responses"
         name = f"{prefix} {self.this_trial_type}"
@@ -421,7 +416,6 @@ Specify a subset of trial types using the 'include' argument.
         self.fig.update_xaxes(row=self.this_row, col=col, autorange=True, **tick_kwargs)
 
     def _update_axes(self) -> None:
-
         self.fig.update_xaxes(
             row=self.nb_trial_types,
             col=1,
@@ -496,7 +490,6 @@ class LayoutPlotter:
         layout: BIDSLayout,
         filters: dict[str, list[str]] | None = None,
     ) -> None:
-
         self.FONT_SIZE = 16
 
         self.datatype = sorted(layout.get(return_type="id", target="datatype"))
@@ -573,7 +566,6 @@ class LayoutPlotter:
         """
 
         if len(self.datatype) > 0:
-
             if "session" in self.df_layout.columns.tolist():
                 fig = self._generate_heat_map(
                     self.df_layout, x="datatype", y="subject", facet_row="session"
