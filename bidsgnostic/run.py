@@ -21,7 +21,6 @@ def main():
 
 
 def group_parser() -> argparse.ArgumentParser:
-
     parser = argparse.ArgumentParser(
         description="""
         Group level diagnostic tool for BIDS datasets.
@@ -99,7 +98,6 @@ def group_parser() -> argparse.ArgumentParser:
 
 
 def main_group(argv: Any = sys.argv) -> None:
-
     parser = group_parser()
 
     args = parser.parse_args(argv[1:])

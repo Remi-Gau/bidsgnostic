@@ -36,7 +36,6 @@ def add_license(snakemake) -> None:
 
 
 def create_ds_desc(snakemake) -> None:
-
     data = {
         "Name": "dataset name",
         "BIDSVersion": "1.7.0",
@@ -73,7 +72,6 @@ def create_ds_desc(snakemake) -> None:
 
 
 def plot_layout(snakemake) -> None:
-
     logger.info(f"Indexing BIDS data: {snakemake.input.bids_dir}" "")
     layout = BIDSLayout(snakemake.input.bids_dir)
     this = LayoutPlotter(layout)

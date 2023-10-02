@@ -118,7 +118,7 @@ jobs:
     executor: python/default
     parameters:
       level:
-        type: string    
+        type: string
     steps:
     - checkout
     - run: pip3 install -e .
@@ -213,7 +213,7 @@ workflows:
     - test_on_all_examples:
         matrix:
           parameters:
-            level: ['event', 'layout']    
+            level: [event, layout]
     - build
     - test_internal_data:
         matrix:

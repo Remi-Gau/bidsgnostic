@@ -15,7 +15,6 @@ def main(
     plot_by: list[str] | None = None,
     log_level: str = "1",
 ) -> None:
-
     if log_level != "0":
         logger.info(f"indexing dataset {bids_dir}")
     layout = BIDSLayout(bids_dir)
