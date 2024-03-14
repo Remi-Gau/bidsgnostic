@@ -19,10 +19,10 @@
    getting_started/installation
    getting_started/example
 
-.. toctree::
-  :caption: Usage
-  :name: usage
-  :hidden:
-  :maxdepth: 1
+.. .. toctree::
+..   :caption: Usage
+..   :name: usage
+..   :hidden:
+..   :maxdepth: 1
 
-  usage/snakemake_cli
+..   usage/snakemake_cli
