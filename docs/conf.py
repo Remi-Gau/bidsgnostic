@@ -14,12 +14,12 @@
 # import sphinx_rtd_theme
 from __future__ import annotations
 
-import os
-import sys
+# import os
+# import sys
 
 # from bidsgnostic import _version
 
-sys.path.insert(0, os.path.abspath("../.."))
+# sys.path.insert(0, os.path.abspath("../.."))
 
 # -- Project information -----------------------------------------------------
 

@@ -7,4 +7,3 @@ sphinx-copybutton
 sphinx_rtd_theme
 sphinxcontrib-matlabdomain
 sphinxcontrib-mermaid
-snakebids
