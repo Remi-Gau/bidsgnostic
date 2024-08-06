@@ -41,7 +41,7 @@ repos:
   rev: v3.13.0
   hooks:
   - id: reorder-python-imports
-    args: [--py37-plus]
+    args: [--py38-plus]
 
 - repo: https://github.com/asottile/setup-cfg-fmt
   rev: v2.5.0
@@ -52,7 +52,7 @@ repos:
   rev: v1.11.1
   hooks:
   - id: mypy
-    additional_dependencies: [types-all, pydantic]
+    additional_dependencies: [pydantic]
     files: bidsmreye
     args: [--config-file, pyproject.toml]
 
@@ -60,7 +60,7 @@ repos:
   rev: v3.17.0
   hooks:
   - id: pyupgrade
-    args: [--py37-plus]
+    args: [--py38-plus]
 
 # - repo: https://github.com/snakemake/snakefmt
 #   rev: v0.8.0
