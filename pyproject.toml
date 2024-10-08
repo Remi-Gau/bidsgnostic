@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "bidsgnostic"
 description = "diagnose bids dataset"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 license = { file="LICENSE" }
 authors = [
   { name = "remi gau", email = "remi.gau@gmail.com" },
