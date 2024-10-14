@@ -38,13 +38,13 @@ repos:
   - id: flynt
 
 - repo: https://github.com/asottile/reorder-python-imports
-  rev: v3.13.0
+  rev: v3.14.0
   hooks:
   - id: reorder-python-imports
     args: [--py38-plus]
 
 - repo: https://github.com/asottile/setup-cfg-fmt
-  rev: v2.5.0
+  rev: v2.7.0
   hooks:
   - id: setup-cfg-fmt
 
@@ -57,7 +57,7 @@ repos:
     args: [--config-file, pyproject.toml]
 
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.17.0
+  rev: v3.18.0
   hooks:
   - id: pyupgrade
     args: [--py39-plus]
