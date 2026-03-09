@@ -71,12 +71,10 @@ class EventPlotter:
             self.event_column = "trial_type"
 
         if len(self.data.columns.to_list()) == 2:
-            warnings.warn(
-                f"""Only columns 'onset' and 'duration' found in:
+            warnings.warn(f"""Only columns 'onset' and 'duration' found in:
     {events_file}
 Creating a dummy trial_type column.
-            """
-            )
+            """)
             self.data["trial_type"] = "trial_type"
 
         self.trial_types(include=include)
@@ -87,13 +85,11 @@ Creating a dummy trial_type column.
             return
 
         if self.nb_trial_types > 13:
-            warnings.warn(
-                f"""More than 13 trial types found in {events_file}.
+            warnings.warn(f"""More than 13 trial types found in {events_file}.
 The plot will be unreadable.
 
 Specify a subset of trial types using the 'include' argument.
-                """
-            )
+                """)
             return
 
         self.fig = go.FigureWidget(
@@ -631,10 +627,8 @@ class LayoutPlotter:
             return
 
         if entity not in self.df_layout.columns.tolist():
-            warnings.warn(
-                f"""Entity '{entity}' not found in layout.
-    Entities available: {self.df_layout.columns.tolist()}"""
-            )
+            warnings.warn(f"""Entity '{entity}' not found in layout.
+    Entities available: {self.df_layout.columns.tolist()}""")
             entity = None
         if entity is None:
             return

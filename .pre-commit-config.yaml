@@ -1,6 +1,4 @@
 ---
-# See https://pre-commit.com for more information
-# See https://pre-commit.com/hooks.html for more hooks
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v6.0.0
@@ -14,56 +12,57 @@ repos:
   - id: check-yaml
   - id: debug-statements
   - id: trailing-whitespace
-
 - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
   rev: 0.2.3
   hooks:
   - id: yamlfmt
-    args: [--mapping, '2', --sequence, '2', --offset, '0']
-
+    args:
+    - --mapping
+    - '2'
+    - --sequence
+    - '2'
+    - --offset
+    - '0'
 - repo: https://github.com/psf/black-pre-commit-mirror
-  rev: 25.12.0
+  rev: 26.3.0
   hooks:
   - id: black
-
 - repo: https://github.com/pycqa/flake8
   rev: 7.3.0
   hooks:
   - id: flake8
-    exclude: tests_.*.py|version.*.py|setup.py     # ignore tests and versioneer related code
-
+    exclude: tests_.*.py|version.*.py|setup.py
 - repo: https://github.com/ikamensh/flynt/
   rev: 1.0.6
   hooks:
   - id: flynt
-
 - repo: https://github.com/asottile/reorder-python-imports
   rev: v3.16.0
   hooks:
   - id: reorder-python-imports
-    args: [--py38-plus]
-
+    args:
+    - --py38-plus
 - repo: https://github.com/asottile/setup-cfg-fmt
   rev: v3.2.0
   hooks:
   - id: setup-cfg-fmt
-
 - repo: https://github.com/pre-commit/mirrors-mypy
   rev: v1.19.1
   hooks:
   - id: mypy
-    additional_dependencies: [pydantic]
+    additional_dependencies:
+    - pydantic
     files: bidsmreye
-    args: [--config-file, pyproject.toml]
-
+    args:
+    - --config-file
+    - pyproject.toml
 - repo: https://github.com/asottile/pyupgrade
   rev: v3.21.2
   hooks:
   - id: pyupgrade
-    args: [--py39-plus]
-
-# - repo: https://github.com/snakemake/snakefmt
-#   rev: v0.8.0
-#   hooks:
-#   - id: snakefmt
-#     args: [bidsgnostic/workflow/Snakefile]
+    args:
+    - --py39-plus
+ci:
+  autoupdate_commit_msg: 'chore: update pre-commit hooks'
+  autoupdate_schedule: monthly
+  autofix_commit_msg: 'style: pre-commit fixes'
